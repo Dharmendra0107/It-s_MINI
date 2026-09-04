@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MINI — MINI CREATIVE // Kinetic Interface v5</title>
+<meta name="description" content="Mini Creative — profile, gallery, and tracklist. An interactive kinetic interface.">
+<meta property="og:title" content="MINI — MINI CREATIVE">
+<meta property="og:description" content="Profile, render gallery, and tracklist for Mini Creative.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/anime_fly.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23060608'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='38' font-weight='700' fill='%23b5893d' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>:root{--void:#060608;--crimson:#2b0404;--gold:#b5893d;--gold-bright:#e0b567;--ivory:#f1f5f9;--slate:#8492a6;--slate-dim:#475569;--ember:239,68,68;--amber:249,115,22}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;overflow-x:hidden}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:0.001s !important;animation-iteration-count:1 !important;transition-duration:0.001s !important}}body{background:#060608;font-family:'Noto Sans JP','Syncopate',sans-serif;color:var(--ivory);scrollbar-width:thin;scrollbar-color:var(--gold) var(--void)}a{color:inherit;text-decoration:none}button{font-family:inherit}:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px}#vanta-bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:1;background:#060608}#petals-canvas{position:fixed;inset:0;width:100vw;height:100vh;z-index:5;pointer-events:none;will-change:transform}.grain-overlay{position:fixed;inset:0;z-index:6;pointer-events:none;opacity:0.035;background-image:radial-gradient(rgba(255,255,255,0.9) 1px,transparent 1px);background-size:3px 3px}#cursor-glow{position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(181,137,61,0.20) 0%,rgba(239,68,68,0.10) 40%,transparent 70%);z-index:9;pointer-events:none;transform:translate(-50%,-50%);opacity:0;transition:opacity 0.4s ease;will-change:transform,opacity}#hero .center-panel:hover #cursor-glow{opacity:1}.mini-walker{position:fixed;top:14vh;right:5%;height:min(24vw,260px);width:auto;max-width:38vw;z-index:40;pointer-events:none;opacity:0;will-change:transform,opacity}.mini-walker img{height:100%;width:auto;max-width:100%;display:block;object-fit:contain;filter:drop-shadow(0 18px 26px rgba(0,0,0,0.65)) drop-shadow(0 0 40px rgba(181,137,61,0.10))}.mini-walker-alt{left:5%;right:auto}@media (max-width:640px){.mini-walker{height:min(26vw,130px);max-width:34vw;top:20vh;right:3%;left:auto}.mini-walker-alt{left:3%;right:auto}}.uptime-readout{font-variant-numeric:tabular-nums}.reveal-target{opacity:0;transform:translateY(32px) scale(0.96);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1)}.reveal-target.in-view{opacity:1;transform:translateY(0) scale(1)}#hero .reveal-target{opacity:1;transform:none;transition:none}.frame-section{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:4vh 2vw;position:relative;z-index:10}@media (max-width:640px){.frame-section{min-height:auto;padding:8vh 4vw}}.console{width:100%;max-width:1200px;min-height:640px;display:grid;position:relative;background-color:#0d0e13;background-size:cover;background-repeat:no-repeat;background-position:50% 40%;animation:bg-drift 32s ease-in-out infinite alternate;box-shadow:0 30px 100px rgba(0,0,0,0.8),inset 0 0 80px rgba(6,6,8,0.9),inset 0 0 140px rgba(0,0,0,0.95);border:1px solid rgba(255,255,255,0.06);border-radius:12px;overflow:hidden}@media (max-width:640px){.console{min-height:auto}}.console::after{content:'';position:absolute;inset:0;background:radial-gradient(circle,transparent 40%,rgba(6,6,8,0.85) 100%);z-index:12;pointer-events:none}.console-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.04) 15%,transparent 16%);background-size:6px 6px;z-index:2;pointer-events:none}.bracket{position:absolute;width:15px;height:15px;border:2px solid rgba(255,255,255,0.15);z-index:13;pointer-events:none}.bracket.tl{top:25px;left:25px;border-right:none;border-bottom:none}.bracket.br{bottom:25px;right:25px;border-left:none;border-top:none}.section-eyebrow{position:absolute;top:25px;left:50%;transform:translateX(-50%);font-family:'Syncopate',sans-serif;font-size:0.7rem;letter-spacing:5px;color:rgba(255,255,255,0.35);z-index:14;text-transform:uppercase}#hero .console{grid-template-columns:45% 42% 13%;background-image:url('assets/mini-scene-04.jpg')}.nihility-bg-text{position:absolute;width:200%;top:45%;left:0;transform:translateY(-50%);font-family:'Syncopate',sans-serif;font-size:14rem;font-weight:700;color:rgba(181,137,61,0.03);letter-spacing:30px;white-space:nowrap;z-index:1;pointer-events:none;user-select:none;animation:move-nihility 35s linear infinite}.left-panel{padding:5% 7%;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:5;min-width:0;background:linear-gradient(90deg,rgba(6,6,8,0.98) 0%,rgba(70,3,3,0.65) 75%,rgba(0,0,0,0) 100%)}.hero-quote-header{font-size:0.85rem;font-weight:900;color:#cbd5e1;letter-spacing:2px;line-height:1.5;text-transform:uppercase;border-left:3px solid var(--gold);padding-left:10px}.quote-jp{font-size:0.75rem;color:var(--slate);display:block;margin-top:4px;letter-spacing:1px}.main-title-group{position:relative;margin-top:15px}.main-kanji{font-family:'Syncopate',sans-serif;font-size:clamp(2.8rem,6.4vw,5.6rem);font-weight:700;color:#fff;line-height:0.95;letter-spacing:2px;display:inline-block;text-shadow:1px 1px 0 var(--gold),2px 2px 0 #8a6428,3px 3px 0 #5e4319,5px 5px 25px rgba(0,0,0,0.95)}.japanese-sub{font-size:1.05rem;color:#f1f5f9;font-weight:900;letter-spacing:6px;margin-bottom:8px;display:block;text-shadow:0 0 8px rgba(255,255,255,0.3)}.numeric-badge{display:inline-block;background:#fff;color:#000;padding:4px 16px;font-size:0.9rem;font-weight:bold;letter-spacing:3px;margin-top:10px;box-shadow:0 4px 15px rgba(0,0,0,0.5);border-radius:2px}.music-player{background:rgba(10,10,14,0.75);border:1px solid rgba(255,255,255,0.08);padding:16px;margin-top:24px;display:flex;flex-direction:column;gap:12px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:6px;box-shadow:0 12px 40px rgba(0,0,0,0.5);transition:border-color 0.3s ease}.music-player.is-playing{border-color:rgba(181,137,61,0.4)}.music-player.has-error{border-color:rgba(var(--ember),0.5)}.player-info{display:flex;justify-content:space-between;align-items:center;gap:10px}.track-title{font-size:0.8rem;font-weight:700;color:#fff;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1 1 auto}.time-display{font-size:0.75rem;font-family:monospace;color:#94a3b8;font-weight:bold;flex-shrink:0}.progress-container{width:100%;height:4px;background:rgba(255,255,255,0.08);position:relative;cursor:pointer;border-radius:2px}.progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),#fff);position:absolute;top:0;left:0;border-radius:2px;box-shadow:0 0 8px var(--gold);transition:width 0.05s linear}.player-controls{display:flex;justify-content:space-between;align-items:center;gap:12px}.play-btn{background:transparent;border:1px solid rgba(255,255,255,0.3);color:#fff;padding:6px 20px;font-size:0.75rem;font-weight:900;letter-spacing:2px;cursor:pointer;text-transform:uppercase;border-radius:20px;transition:all 0.25s ease}.play-btn:hover:not(:disabled){background:#fff;color:#060608;transform:scale(1.03)}.play-btn:disabled{opacity:0.35;cursor:not-allowed}.volume-container{display:flex;align-items:center;gap:8px}.volume-label{font-size:0.64rem;color:var(--slate-dim);font-family:monospace}.volume-slider{-webkit-appearance:none;appearance:none;width:70px;height:3px;background:rgba(255,255,255,0.12);outline:none;border-radius:2px;cursor:pointer}.volume-slider::-webkit-slider-thumb{-webkit-appearance:none;width:8px;height:8px;background:var(--gold);border-radius:50%}.volume-slider::-moz-range-thumb{width:8px;height:8px;background:var(--gold);border-radius:50%;border:none}.left-footer{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px;border-top:1px solid rgba(255,255,255,0.08);padding-top:15px;margin-top:20px}.game-meta{font-size:0.75rem;color:var(--slate-dim);font-weight:bold;letter-spacing:2px}.tag-pill{background:transparent;border:1px solid rgba(255,255,255,0.4);color:#fff;padding:4px 14px;font-size:0.7rem;font-weight:bold;letter-spacing:2px;border-radius:2px}.center-panel{position:relative;display:flex;align-items:center;justify-content:center;z-index:4;min-width:0}.art-window{width:92%;height:90%;position:relative;overflow:hidden;border-radius:4px;background:linear-gradient(135deg,rgba(20,30,30,0.05) 0%,rgba(10,15,15,0.3) 100%);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.06)}.art-window::after{content:'';position:absolute;width:100%;height:2px;background:linear-gradient(90deg,transparent,rgba(181,137,61,0.3),rgba(255,255,255,0.4),rgba(181,137,61,0.3),transparent);top:0;z-index:2;animation:laser-scan 4s linear infinite}.large-bg-kanji{font-size:16rem;color:rgba(255,255,255,0.02);position:absolute;top:-20px;left:-20px;font-weight:900;z-index:2;user-select:none}.tech-overlay{position:absolute;right:25px;top:25%;display:flex;flex-direction:column;align-items:flex-end;gap:8px;color:rgba(255,255,255,0.3);font-size:0.64rem;font-family:monospace;z-index:3}.live-pulse-bar{width:40px;height:2px;background:var(--gold);animation:bar-stretch 1.2s infinite ease-in-out}.character-root{position:absolute;width:110%;height:95%;bottom:2%;left:-10%;z-index:10;pointer-events:none;transition:transform 0.4s cubic-bezier(0.25,1,0.5,1);will-change:transform}.character-img{width:100%;height:100%;object-fit:contain;object-position:bottom center;filter:drop-shadow(0 15px 30px rgba(0,0,0,0.8)) drop-shadow(0 0 60px rgba(220,38,38,0.12));animation:float-character 6s ease-in-out infinite}.right-panel{padding:40px 15px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;position:relative;z-index:15;min-width:0;background:linear-gradient(-90deg,rgba(6,6,8,0.4) 0%,transparent 100%)}.pill-box{border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 18px;font-size:0.75rem;letter-spacing:2px;font-weight:bold;background:rgba(255,255,255,0.02)}.vertical-text-wrap{display:flex;flex-direction:column;align-items:center;gap:15px}.v-kanji-title{writing-mode:vertical-rl;font-size:2.42rem;font-weight:900;letter-spacing:10px;color:#fff;text-shadow:0 4px 10px rgba(0,0,0,0.6)}.v-latin-sub{writing-mode:vertical-rl;font-size:0.8rem;letter-spacing:6px;color:rgba(255,255,255,0.5)}.diamond{color:var(--gold);font-size:0.8rem;animation:pulse-glow 2s infinite ease-in-out}.panel-footer-stamp{text-align:center}.micro-japanese{font-size:0.52rem;letter-spacing:3px;color:rgba(255,255,255,0.3);writing-mode:vertical-rl;transform:rotate(180deg);margin-top:8px}.scroll-cue{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:14;font-size:0.58rem;letter-spacing:3px;color:rgba(255,255,255,0.3);display:flex;flex-direction:column;align-items:center;gap:6px;text-transform:uppercase}.scroll-cue .chevron{animation:chevron-bounce 1.8s ease-in-out infinite}@media (max-width:860px){#hero .console{grid-template-columns:1fr;grid-template-rows:auto auto auto}.right-panel{flex-direction:row;flex-wrap:wrap;justify-content:space-between;row-gap:10px;padding:16px 20px}.vertical-text-wrap{flex-direction:row}.v-kanji-title,.v-latin-sub,.micro-japanese{writing-mode:horizontal-tb;transform:none;font-size:1rem;letter-spacing:2px}.center-panel{min-height:280px}.main-kanji{letter-spacing:1px}}#profile .console{grid-template-columns:1fr;background-image:url('assets/mini-scene-01.jpg');padding:60px 8%;display:flex;flex-direction:column;justify-content:center;gap:36px}#profile .console::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,8,0.68) 0%,rgba(43,4,4,0.62) 100%);z-index:1}#profile > .console > *{position:relative;z-index:3}.profile-header{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}.profile-header h2{font-family:'Syncopate',sans-serif;font-size:clamp(2rem,4.2vw,3rem);letter-spacing:4px;color:#fff;font-weight:700}.profile-header .profile-sub{font-size:0.8rem;letter-spacing:3px;color:var(--gold-bright);text-transform:uppercase}.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px}.stat-card{border:1px solid rgba(255,255,255,0.08);background:rgba(10,10,14,0.5);padding:18px 20px;border-radius:6px;backdrop-filter:blur(6px)}.stat-card .stat-label{font-size:0.7rem;letter-spacing:2px;color:var(--slate);text-transform:uppercase;margin-bottom:10px;display:flex;justify-content:space-between}.stat-bar-track{width:100%;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden}.stat-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),#fff);box-shadow:0 0 8px var(--gold);width:0%;transition:width 1.4s cubic-bezier(0.16,1,0.3,1)}.stat-card .stat-value{font-size:0.75rem;font-weight:700;color:#fff;font-family:monospace}.bio-row{display:grid;grid-template-columns:1fr 1fr;gap:40px}.bio-row p{font-size:0.95rem;line-height:1.9;color:#cbd5e1}.bio-row .tag-list{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}@media (max-width:700px){.bio-row{grid-template-columns:1fr}}.skills-cloud{display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.08);padding-top:22px}.skills-label{font-size:0.7rem;letter-spacing:2px;color:var(--slate);text-transform:uppercase;flex-shrink:0}.skills-tags{display:flex;flex-wrap:wrap;gap:8px}.skill-tag{font-size:0.72rem;letter-spacing:1px;color:#cbd5e1;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.02);padding:4px 12px;border-radius:14px}#gallery .console{grid-template-columns:1fr;background-image:url('assets/mini-scene-05.jpg');padding:60px 6%;display:flex;flex-direction:column;gap:28px;justify-content:center}#gallery .console::before{content:'';position:absolute;inset:0;background:rgba(4,4,6,0.68);z-index:1}#gallery > .console > *{position:relative;z-index:3}.gallery-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px}.gallery-header h2{font-family:'Syncopate',sans-serif;font-size:clamp(1.8rem,3.8vw,2.6rem);letter-spacing:4px;color:#fff}.gallery-header span{font-size:0.75rem;letter-spacing:2px;color:var(--slate);font-family:monospace}.gallery-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.gallery-frame{position:relative;aspect-ratio:3/4;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:#0a0a0c;cursor:pointer}.gallery-frame img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 0.5s ease,filter 0.5s ease}.gallery-frame:hover img,.gallery-frame:focus-visible img{transform:scale(1.06)}.gallery-frame .g-tag{position:absolute;bottom:8px;left:8px;font-size:0.64rem;letter-spacing:1.5px;font-family:monospace;color:#fff;background:rgba(0,0,0,0.55);padding:3px 8px;border-radius:2px}.g-01 img{filter:saturate(1.05) contrast(1.05)}.g-02 img{filter:grayscale(1) contrast(1.15)}.g-03 img{filter:sepia(0.55) hue-rotate(-10deg) saturate(1.4)}.g-04 img{filter:invert(0.88) hue-rotate(180deg) contrast(1.2)}@media (max-width:780px){.gallery-strip{grid-template-columns:repeat(2,1fr)}}#discography .console{grid-template-columns:1fr;background-image:url('assets/mini-concept-06.jpg');padding:60px 8%;display:flex;flex-direction:column;gap:26px;justify-content:center}#discography .console::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,8,0.68) 0%,rgba(43,4,4,0.6) 100%);z-index:1}#discography > .console > *{position:relative;z-index:3}.disco-header h2{font-family:'Syncopate',sans-serif;font-size:clamp(1.8rem,3.8vw,2.6rem);letter-spacing:4px;color:#fff}.disco-header p{font-size:0.8rem;color:var(--slate);margin-top:6px;letter-spacing:1px}.track-list{display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,0.08)}.track-row{display:grid;grid-template-columns:36px 1fr auto auto;align-items:center;gap:16px;padding:14px 6px;border-bottom:1px solid rgba(255,255,255,0.08);background:transparent;border-left:none;border-right:none;border-top:none;color:inherit;cursor:pointer;text-align:left;font-family:inherit;transition:background 0.2s ease}.track-row:hover:not(:disabled){background:rgba(255,255,255,0.03)}.track-row:disabled{cursor:default;opacity:0.45}.track-index{font-family:monospace;font-size:0.85rem;color:var(--slate-dim)}.track-row.playing .track-index{color:var(--gold-bright)}.track-meta .t-name{font-size:0.9rem;font-weight:700;letter-spacing:0.5px}.track-meta .t-artist{font-size:0.75rem;color:var(--slate);margin-top:3px}.track-status{font-size:0.7rem;letter-spacing:2px;font-family:monospace;color:var(--slate-dim);text-transform:uppercase}.track-row.playing .track-status{color:var(--gold-bright)}.track-icon{width:20px;height:20px;display:flex;align-items:center;justify-content:center}.eq-bars{display:flex;align-items:flex-end;gap:2px;height:14px}.eq-bars span{width:2.5px;background:var(--gold-bright);border-radius:1px;animation:eq-bounce 0.9s ease-in-out infinite}.eq-bars span:nth-child(2){animation-delay:0.15s}.eq-bars span:nth-child(3){animation-delay:0.3s}.disco-player-bar{margin-top:6px;display:flex;align-items:center;gap:14px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:12px 16px;background:rgba(10,10,14,0.6);backdrop-filter:blur(8px)}.disco-player-bar .progress-container{flex:1}.disco-player-bar .time-display{width:auto}@media (max-width:640px){.track-row{grid-template-columns:26px 1fr auto}.track-status{display:none}}#contact .console{grid-template-columns:1fr;background-image:url('assets/mini-concept-01.jpg');padding:60px 8%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:30px;min-height:520px}#contact .console::before{content:'';position:absolute;inset:0;background:rgba(4,4,6,0.68);z-index:1}#contact > .console > *{position:relative;z-index:3}.contact-kanji{font-family:'Syncopate',sans-serif;font-size:clamp(2.2rem,6.2vw,3.8rem);font-weight:700;color:#fff;letter-spacing:6px;text-shadow:1px 1px 0 var(--gold),2px 2px 0 #8a6428,4px 4px 20px rgba(0,0,0,0.9)}.contact-line{font-size:0.85rem;letter-spacing:2px;color:var(--slate);max-width:480px;line-height:1.8}.social-row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}.social-link{border:1px solid rgba(255,255,255,0.2);border-radius:24px;padding:9px 22px;font-size:0.75rem;letter-spacing:2px;font-weight:700;text-transform:uppercase;background:rgba(255,255,255,0.02);transition:all 0.25s ease;display:flex;align-items:center;gap:8px}.social-link:hover{background:#fff;color:#060608;transform:translateY(-2px)}.social-link .dot-live{width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold)}.footer-stamp{font-size:0.64rem;letter-spacing:3px;color:rgba(255,255,255,0.25);font-family:monospace;margin-top:10px}#mini-about .console{grid-template-columns:1fr;background-image:url('assets/mini-scene-06.jpg');padding:60px 8%;display:flex;flex-direction:column;gap:30px;justify-content:center}#mini-about .console::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,8,0.68) 0%,rgba(43,4,4,0.6) 100%);z-index:1}#mini-about > .console > *{position:relative;z-index:3}.mini-badge{display:inline-flex;align-items:center;gap:8px;width:fit-content;border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:6px 16px;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--slate);font-family:monospace}.mini-badge .icon-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold)}.mini-heading h2{font-family:'Syncopate',sans-serif;font-size:clamp(2rem,4.2vw,3rem);letter-spacing:3px;color:#fff;font-weight:700;margin-top:14px}.mini-heading .mini-sub{display:block;margin-top:8px;font-size:0.8rem;letter-spacing:2px;color:var(--gold-bright);text-transform:uppercase;font-family:monospace}.mini-tagline{font-family:'Syncopate',sans-serif;font-size:1.55rem;font-weight:700;color:#fff;margin-top:6px}.mini-tagline .accent{color:var(--gold-bright)}.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}@media (max-width:700px){.info-grid{grid-template-columns:1fr}}.info-card{border:1px solid rgba(255,255,255,0.08);background:rgba(10,10,14,0.5);padding:20px 22px;border-radius:6px;backdrop-filter:blur(6px)}.info-card .tag{font-size:0.7rem;letter-spacing:2px;color:var(--gold-bright);text-transform:uppercase;font-family:monospace;display:block;margin-bottom:10px}.info-card p{font-size:0.92rem;line-height:1.7;color:#cbd5e1}#mini-features .console{grid-template-columns:1fr;background-image:url('assets/mini-concept-08.jpg');padding:60px 6%;display:flex;flex-direction:column;gap:26px;justify-content:center}#mini-features .console::before{content:'';position:absolute;inset:0;background:rgba(4,4,6,0.68);z-index:1}#mini-features > .console > *{position:relative;z-index:3}.feature-grid-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}@media (max-width:900px){.feature-grid-mini{grid-template-columns:repeat(2,1fr)}}@media (max-width:520px){.feature-grid-mini{grid-template-columns:1fr}}.feature-card-mini{border:1px solid rgba(255,255,255,0.08);background:rgba(10,10,14,0.5);padding:16px 18px;border-radius:6px;transition:border-color 0.25s ease}.feature-card-mini:hover{border-color:rgba(181,137,61,0.5)}.feature-card-mini .f-num{font-family:monospace;font-size:0.7rem;color:var(--gold-bright);letter-spacing:1px;margin-bottom:8px;display:block}.feature-card-mini h4{font-size:0.88rem;font-weight:700;color:#fff;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase}.feature-card-mini p{font-size:0.8rem;color:var(--slate);line-height:1.6}.module-row-label{font-size:0.7rem;letter-spacing:2px;color:var(--slate);text-transform:uppercase;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;margin-bottom:2px;font-family:monospace}#mini-why .console{grid-template-columns:1fr;background-image:url('assets/mini-scene-02.jpg');padding:60px 8%;display:flex;flex-direction:column;gap:26px;justify-content:center}#mini-why .console::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,8,0.68) 0%,rgba(43,4,4,0.6) 100%);z-index:1}#mini-why > .console > *{position:relative;z-index:3}.compare-mini{width:100%;border-collapse:collapse}.compare-mini th{text-align:left;padding:10px 14px;font-family:monospace;font-size:0.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--slate);border-bottom:1px solid rgba(255,255,255,0.15)}.compare-mini th.mini-col{color:var(--gold-bright)}.compare-mini td{padding:10px 14px;font-size:0.88rem;border-bottom:1px solid rgba(255,255,255,0.06)}.compare-mini td.old{color:var(--slate-dim)}.compare-mini td.old::before{content:'✕ ';color:rgba(239,68,68,0.7)}.compare-mini td.new{color:#fff;font-weight:700}.compare-mini td.new::before{content:'✓ ';color:var(--gold-bright)}#mini-get .console{grid-template-columns:1fr;background-image:url('assets/mini-concept-09.jpg');padding:60px 8%;display:flex;flex-direction:column;gap:24px;justify-content:center}#mini-get .console::before{content:'';position:absolute;inset:0;background:rgba(4,4,6,0.68);z-index:1}#mini-get > .console > *{position:relative;z-index:3}.platform-row{display:flex;flex-wrap:wrap;gap:10px}.platform-pill{display:flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:7px 16px;font-size:0.72rem;letter-spacing:1.5px;text-transform:uppercase;color:#fff;font-family:monospace}.platform-pill.soon{color:var(--slate-dim);border-color:rgba(255,255,255,0.08)}.platform-pill .p-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold)}.platform-pill.soon .p-dot{background:var(--slate-dim);box-shadow:none}.roadmap-grid-mini{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px}@media (max-width:600px){.roadmap-grid-mini{grid-template-columns:1fr}}.roadmap-row-mini{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:0.85rem;color:#cbd5e1}.roadmap-row-mini .rc{width:16px;height:16px;border-radius:50%;background:rgba(181,137,61,0.15);border:1px solid var(--gold);color:var(--gold-bright);display:flex;align-items:center;justify-content:center;font-size:0.64rem;flex-shrink:0}.mini-footnote{font-size:0.75rem;color:var(--slate-dim);letter-spacing:1px;margin-top:4px}#mini-concepts .console{grid-template-columns:1fr;background-image:url('assets/mini-concept-04.jpg');padding:60px 6%;display:flex;flex-direction:column;gap:24px;justify-content:center}#mini-concepts .console::before{content:'';position:absolute;inset:0;background:rgba(4,4,6,0.68);z-index:1}#mini-concepts > .console > *{position:relative;z-index:3}.concept-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media (max-width:980px){.concept-grid{grid-template-columns:repeat(3,1fr)}}@media (max-width:640px){.concept-grid{grid-template-columns:repeat(2,1fr)}}.concept-frame{position:relative;aspect-ratio:3/2;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:#0a0a0c;cursor:pointer;padding:0}.concept-frame img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 0.5s ease,filter 0.5s ease;display:block}.concept-frame:hover img,.concept-frame:focus-visible img{transform:scale(1.06)}.concept-frame .g-tag{position:absolute;bottom:8px;left:8px;font-size:0.64rem;letter-spacing:1.5px;font-family:monospace;color:#fff;background:rgba(0,0,0,0.6);padding:3px 8px;border-radius:2px}.lightbox-overlay{position:fixed;inset:0;z-index:200;background:rgba(4,4,6,0.94);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:4vh 4vw;opacity:0;pointer-events:none;transition:opacity 0.3s ease}.lightbox-overlay.open{opacity:1;pointer-events:auto}.lightbox-overlay img{max-width:100%;max-height:90vh;border-radius:6px;box-shadow:0 30px 90px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.1)}@keyframes move-nihility{0%{transform:translate(0,-50%)}100%{transform:translate(-50%,-50%)}}@keyframes float-character{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}@keyframes laser-scan{0%{top:0%;opacity:0}5%,95%{opacity:1}100%{top:100%;opacity:0}}@keyframes bar-stretch{0%,100%{width:15px}50%{width:45px}}@keyframes pulse-glow{0%,100%{opacity:0.3;transform:scale(0.9)}50%{opacity:1;transform:scale(1.1)}}@keyframes chevron-bounce{0%,100%{transform:translateY(0);opacity:0.3}50%{transform:translateY(6px);opacity:0.8}}@keyframes eq-bounce{0%,100%{height:3px}50%{height:14px}}@keyframes bg-drift{0%{background-position:46% 34%}100%{background-position:54% 48%}}img{max-width:100%}.tilt-target{transition:transform 0.18s ease-out;will-change:transform}.floating-audio-widget{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:120;display:flex;align-items:center;gap:0;background:rgba(10,10,14,0.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.18);border-radius:999px;padding:6px;box-shadow:0 10px 30px rgba(0,0,0,0.6),0 0 0 1px rgba(181,137,61,0.15);transition:border-color 0.3s ease,box-shadow 0.3s ease}.floating-audio-widget.playing{border-color:rgba(181,137,61,0.5);box-shadow:0 10px 30px rgba(0,0,0,0.6),0 0 22px rgba(181,137,61,0.35)}.fab-btn{position:relative;width:42px;height:42px;flex-shrink:0;border-radius:50%;border:none;background:transparent;color:var(--gold-bright);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.2s ease}.fab-btn:hover{transform:scale(1.08)}.fab-btn:active{transform:scale(0.92)}.fab-btn:disabled{cursor:not-allowed;opacity:0.4}.floating-audio-widget.has-error{border-color:rgba(239,68,68,0.4)}.fab-btn .fab-icon{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;margin-left:2px}.floating-audio-widget.playing .fab-icon{margin-left:0}.fab-ring{position:absolute;inset:1px;border-radius:50%;border:1.5px solid var(--gold);opacity:0;transform:scale(1);pointer-events:none}.floating-audio-widget.playing .fab-ring{animation:fab-pulse 1.8s ease-out infinite}@keyframes fab-pulse{0%{opacity:0.6;transform:scale(1)}100%{opacity:0;transform:scale(1.4)}}.fab-volume-wrap{width:0;opacity:0;overflow:hidden;transition:width 0.3s cubic-bezier(0.16,1,0.3,1),opacity 0.25s ease,margin-left 0.3s ease;margin-left:0}.floating-audio-widget.expanded .fab-volume-wrap{width:76px;opacity:1;margin-left:6px}.fab-volume{-webkit-appearance:none;appearance:none;width:72px;height:3px;background:rgba(255,255,255,0.15);outline:none;border-radius:2px;cursor:pointer;display:block}.fab-volume::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;background:var(--gold);border-radius:50%;box-shadow:0 0 6px rgba(181,137,61,0.6)}.fab-volume::-moz-range-thumb{width:11px;height:11px;background:var(--gold);border-radius:50%;border:none;box-shadow:0 0 6px rgba(181,137,61,0.6)}.fab-volume::-moz-range-progress{background:var(--gold);height:3px;border-radius:2px}@media (max-width:640px){.floating-audio-widget{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:5px}.fab-btn{width:38px;height:38px}.floating-audio-widget.expanded .fab-volume-wrap{width:60px}.fab-volume{width:56px}}@media (prefers-reduced-motion:reduce){.floating-audio-widget.playing .fab-ring{animation:none}.fab-volume-wrap{transition:none}}@media (max-width:480px){.play-btn{padding:8px 20px}.social-link{padding:11px 22px}}.profile-header h2,.gallery-header h2,.disco-header h2,.mini-heading h2,.profile-header .profile-sub,.gallery-header span,.disco-header p,.mini-heading .mini-sub,.mini-tagline,.contact-line,.bio-row p,.info-card p,.section-eyebrow,.module-row-label,.mini-badge,.roadmap-row-mini,.platform-pill,.compare-mini td,.compare-mini th,.skills-label,.stat-card .stat-label,.track-meta .t-artist,.disco-header p,.feature-card-mini p,.feature-card-mini h4{text-shadow:0 2px 8px rgba(0,0,0,0.95),0 1px 3px rgba(0,0,0,0.9)}.section-eyebrow{color:rgba(255,255,255,0.55)}@media (max-width:480px){.compare-mini td,.compare-mini th{padding:8px 6px;font-size:0.78rem}.disco-player-bar{flex-wrap:wrap;gap:10px}.disco-player-bar .progress-container{order:3;flex-basis:100%}}@media (max-width:360px){.main-kanji{font-size:2.42rem}.mini-heading h2,.gallery-header h2,.disco-header h2,.profile-header h2{font-size:1.65rem;letter-spacing:2px}}#mini-timeline .console{grid-template-columns:1fr;background-image:url('assets/mini-concept-11.jpg');padding:60px 8%;display:flex;flex-direction:column;gap:26px;justify-content:center}#mini-timeline .console::before{content:'';position:absolute;inset:0;background:rgba(4,4,6,0.75);z-index:1}#mini-timeline > .console > *{position:relative;z-index:3}.mini-timeline-list{position:relative;padding-left:28px}.mini-timeline-list::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:1px;background:rgba(255,255,255,0.16)}.mini-timeline-item{position:relative;padding-bottom:30px}.mini-timeline-item:last-child{padding-bottom:0}.mini-timeline-item::before{content:'';position:absolute;left:-28px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid var(--gold-bright);box-shadow:0 0 8px var(--gold)}.mini-timeline-item .tl-label{font-family:monospace;font-size:0.72rem;color:var(--slate);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}.mini-timeline-item h4{font-family:'Syncopate',sans-serif;font-size:1.05rem;color:#fff;font-weight:700}.mini-timeline-item p{font-size:0.82rem;color:var(--slate);margin-top:4px;max-width:520px}#mini-founder .console{grid-template-columns:1fr;background-image:url('assets/mini-scene-03.jpg');padding:60px 8%;display:flex;flex-direction:column;gap:24px;justify-content:center}#mini-founder .console::before{content:'';position:absolute;inset:0;background:rgba(4,4,6,0.72);z-index:1}#mini-founder > .console > *{position:relative;z-index:3}.founder-card-mini{display:flex;align-items:center;gap:26px;flex-wrap:wrap;border:1px solid rgba(255,255,255,0.1);background:rgba(10,10,14,0.55);backdrop-filter:blur(6px);border-radius:8px;padding:30px}.founder-avatar-mini{width:74px;height:74px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--gold-bright),#ef4444);display:flex;align-items:center;justify-content:center;font-family:'Syncopate',sans-serif;font-weight:700;font-size:1.4rem;color:#0a0a0c}.founder-card-mini h3{font-size:1.2rem;color:#fff;font-weight:700;margin-bottom:4px}.founder-card-mini .role{font-family:monospace;font-size:0.78rem;color:var(--gold-bright);margin-bottom:10px;letter-spacing:0.5px}.founder-card-mini p.line{color:var(--slate);font-size:0.9rem;max-width:500px;line-height:1.7}#mini-testimonials .console{grid-template-columns:1fr;background-image:url('assets/mini-detail-01.jpg');padding:60px 8%;display:flex;flex-direction:column;gap:26px;justify-content:center}#mini-testimonials .console::before{content:'';position:absolute;inset:0;background:rgba(4,4,6,0.78);z-index:1}#mini-testimonials > .console > *{position:relative;z-index:3}.testimonial-grid-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}@media (max-width:860px){.testimonial-grid-mini{grid-template-columns:1fr}}.testimonial-card-mini{border:1px solid rgba(255,255,255,0.1);background:rgba(10,10,14,0.55);backdrop-filter:blur(6px);border-radius:8px;padding:26px}.testimonial-card-mini .quote{font-family:'Syncopate',sans-serif;font-size:1rem;color:#fff;font-weight:500;line-height:1.5;margin-bottom:16px}.testimonial-card-mini .who{font-family:monospace;font-size:0.72rem;color:var(--gold-bright);text-transform:uppercase;letter-spacing:1.5px}#particles{position:absolute;inset:0;z-index:1;touch-action:none}:root{--ent-accent:#ff2020;--ent-accent-dim:rgba(255,32,32,0.45);--ent-yellow:#f4c400}@media (pointer:fine){.entrance,.entrance *{cursor:none}}.cursor-dot{position:fixed;top:0;left:0;width:6px;height:6px;border-radius:50%;background:var(--ent-accent);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 10px var(--ent-accent-dim);display:none}.cursor-ring{position:fixed;top:0;left:0;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--ent-accent-dim);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.2s ease,height 0.2s ease,border-color 0.2s ease;display:none}.cursor-ring::before,.cursor-ring::after{content:'';position:absolute;background:var(--ent-accent-dim)}.cursor-ring::before{top:50%;left:-8px;width:6px;height:1px;transform:translateY(-50%)}.cursor-ring::after{top:50%;right:-8px;width:6px;height:1px;transform:translateY(-50%)}.cursor-ring.active{width:52px;height:52px;border-color:var(--ent-accent)}@media (pointer:fine){.cursor-dot,.cursor-ring{display:block}}.entrance{position:relative;width:100%;height:100vh;height:100dvh;overflow:hidden;background:#000;z-index:300;position:fixed;inset:0;transition:opacity 0.9s ease,visibility 0.9s ease,transform 0.9s cubic-bezier(0.65,0,0.35,1),filter 0.9s ease}.entrance.hidden{opacity:0;visibility:hidden;pointer-events:none;transform:scale(1.05);filter:blur(10px)}.tagline{position:absolute;top:13%;left:50%;transform:translateX(-50%) rotate(1deg);z-index:3;display:inline-block;font-family:'Space Mono','Courier New',monospace;font-weight:700;font-size:0.75rem;letter-spacing:0.28em;color:#000;text-transform:uppercase;background:var(--ent-yellow);border:2.5px solid #000;padding:6px 18px;box-shadow:3px 3px 0 #000;opacity:0;transition:opacity 0.8s ease;white-space:nowrap;max-width:88vw;text-align:center}.tagline.show{opacity:1}.grunge-overlay{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0.5;mix-blend-mode:overlay;background-image:repeating-linear-gradient(115deg,rgba(255,255,255,0.05) 0px,rgba(255,255,255,0.05) 1px,transparent 1px,transparent 38px),repeating-linear-gradient(25deg,rgba(255,255,255,0.04) 0px,rgba(255,255,255,0.04) 1px,transparent 1px,transparent 52px),radial-gradient(ellipse at 20% 30%,rgba(255,255,255,0.08),transparent 45%),radial-gradient(ellipse at 80% 75%,rgba(255,255,255,0.06),transparent 50%)}.grunge-vignette{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,0.65) 100%)}.claw-slash{position:absolute;z-index:3;pointer-events:none;opacity:0.85}.claw-slash.tl{top:18px;left:18px}.claw-slash.tr{top:18px;right:18px;transform:scaleX(-1)}.claw-slash.bl{bottom:18px;left:18px;transform:scaleY(-1)}.claw-slash.br{bottom:18px;right:18px;transform:scale(-1,-1)}.bg-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;pointer-events:none;user-select:none;white-space:nowrap;font-family:'Alfa Slab One',serif;text-transform:uppercase;font-size:clamp(6rem,32vw,27rem);letter-spacing:0.02em;background:linear-gradient(180deg,rgba(255,32,32,0.32) 0%,rgba(255,32,32,0.08) 55%,rgba(0,0,0,0) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:3px 0 0 rgba(255,32,32,0.06),-2px 0 0 rgba(0,0,0,0.3)}#particles{position:absolute;inset:0;z-index:1;touch-action:none}.enter-btn-wrap{position:absolute;bottom:13%;left:0;right:0;z-index:3;display:flex;justify-content:center;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity 0.6s ease,transform 0.6s ease}.enter-btn-wrap.show{opacity:1;transform:translateY(0);pointer-events:auto}.enter-btn{background:var(--ent-yellow);border:3px solid #000;color:#000;padding:13px 34px;border-radius:2px;cursor:pointer;font-family:'Space Mono','Courier New',monospace;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;font-size:0.85rem;display:inline-flex;align-items:center;gap:12px;transform:rotate(-1.5deg);box-shadow:4px 4px 0 #000;white-space:nowrap;transition:background 0.2s ease,color 0.2s ease,box-shadow 0.15s ease,transform 0.15s ease}.enter-btn:hover{background:#000;color:var(--ent-yellow);box-shadow:4px 4px 0 var(--ent-accent),0 0 22px var(--ent-accent-dim);transform:rotate(-1.5deg) translateY(-2px)}.enter-btn:active{box-shadow:1px 1px 0 #000;transform:rotate(-1.5deg) translateY(3px)}.enter-btn .arrow{transition:transform 0.25s ease;font-size:1rem}.enter-btn:hover .arrow{transform:translateX(5px)}.entrance .enter-hint{position:absolute;bottom:6%;left:0;right:0;z-index:3;text-align:center;font-family:'Space Mono','Courier New',monospace;font-size:0.62rem;letter-spacing:0.08em;color:rgba(255,255,255,0.4);opacity:0;transition:opacity 0.7s ease;padding:0 6vw}.entrance .enter-hint.show{opacity:1}.entrance-skip{position:absolute;top:22px;right:24px;z-index:4;background:#000;border:2px solid var(--ent-yellow);color:var(--ent-yellow);padding:7px 16px;border-radius:2px;font-family:'Space Mono','Courier New',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:opacity 0.5s ease,background 0.2s ease,color 0.2s ease}.entrance-skip:hover{background:var(--ent-accent);color:#000;border-color:var(--ent-accent)}.entrance-skip.hide{opacity:0;pointer-events:none}@media (max-width:480px){.entrance-skip{top:14px;right:14px;padding:6px 12px;font-size:0.58rem}}@media (max-width:420px){.tagline{font-size:0.62rem;letter-spacing:0.2em;padding:5px 14px;white-space:normal;line-height:1.6}.enter-btn{padding:11px 24px;font-size:0.78rem}.entrance .enter-hint{font-size:0.55rem}}@media (max-height:480px){.tagline{display:none}}@media (prefers-reduced-motion:reduce){.enter-btn-wrap,.tagline,.entrance .enter-hint{transition:none}}</style>
+<script type="x-shader/x-vertex" id="vertexshader">
+attribute float size;
+attribute vec3 customColor;
+varying vec3 vColor;
+void main() {
+  vColor = customColor;
+  vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+  gl_PointSize = size * ( 300.0 / -mvPosition.z );
+  gl_Position = projectionMatrix * mvPosition;
+}
+</script>
+<script type="x-shader/x-fragment" id="fragmentshader">
+uniform vec3 color;
+uniform sampler2D pointTexture;
+varying vec3 vColor;
+void main() {
+  gl_FragColor = vec4( color * vColor, 1.0 );
+  gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
+}
+</script>
+</head>
+<body>
+
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <section class="entrance" id="entrance">
+    <button class="entrance-skip" id="entranceSkip" type="button">Skip →</button>
+    <div class="bg-watermark" aria-hidden="true">MINI</div>
+    <div id="particles" role="img" aria-label="MINI — animated particle text"></div>
+    <div class="grunge-overlay" aria-hidden="true"></div>
+    <div class="grunge-vignette" aria-hidden="true"></div>
+
+    <svg class="claw-slash tl" width="70" height="70" viewBox="0 0 70 70" aria-hidden="true">
+      <path d="M5 5 L 40 45" stroke="#ff2020" stroke-width="2" fill="none" opacity="0.9"/>
+      <path d="M12 2 L 48 38" stroke="#ff2020" stroke-width="1.5" fill="none" opacity="0.6"/>
+      <path d="M2 14 L 34 52" stroke="#ff2020" stroke-width="1.5" fill="none" opacity="0.6"/>
+    </svg>
+    <svg class="claw-slash tr" width="70" height="70" viewBox="0 0 70 70" aria-hidden="true">
+      <path d="M5 5 L 40 45" stroke="#ff2020" stroke-width="2" fill="none" opacity="0.9"/>
+      <path d="M12 2 L 48 38" stroke="#ff2020" stroke-width="1.5" fill="none" opacity="0.6"/>
+      <path d="M2 14 L 34 52" stroke="#ff2020" stroke-width="1.5" fill="none" opacity="0.6"/>
+    </svg>
+    <svg class="claw-slash bl" width="70" height="70" viewBox="0 0 70 70" aria-hidden="true">
+      <path d="M5 5 L 40 45" stroke="#ff2020" stroke-width="2" fill="none" opacity="0.9"/>
+      <path d="M12 2 L 48 38" stroke="#ff2020" stroke-width="1.5" fill="none" opacity="0.6"/>
+      <path d="M2 14 L 34 52" stroke="#ff2020" stroke-width="1.5" fill="none" opacity="0.6"/>
+    </svg>
+    <svg class="claw-slash br" width="70" height="70" viewBox="0 0 70 70" aria-hidden="true">
+      <path d="M5 5 L 40 45" stroke="#ff2020" stroke-width="2" fill="none" opacity="0.9"/>
+      <path d="M12 2 L 48 38" stroke="#ff2020" stroke-width="1.5" fill="none" opacity="0.6"/>
+      <path d="M2 14 L 34 52" stroke="#ff2020" stroke-width="1.5" fill="none" opacity="0.6"/>
+    </svg>
+
+    <div class="tagline" id="tagline">Think Less. Automate More.</div>
+    <div class="enter-btn-wrap" id="enterBtnWrap">
+      <button id="enterBtn" class="enter-btn" type="button">Enter MINI <span class="arrow" aria-hidden="true">→</span></button>
+    </div>
+    <div class="enter-hint" id="enterHint">click a letter to pulse it · click below or press enter to continue</div>
+  </section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>const EMBEDDED_FONT_DATA={glyphs:{0:{ha:732,x_min:14,x_max:718,o:"m 366 -14 q 106 82 197 -14 q 14 389 14 178 l 14 389 q 106 696 14 600 q 366 792 197 792 l 366 792 q 627 696 535 792 q 718 389 718 600 l 718 389 q 634 90 718 194 q 366 -14 549 -14 l 366 -14 m 366 164 q 434 238 434 164 l 434 238 l 434 540 q 366 614 434 614 l 366 614 q 298 540 298 614 l 298 540 l 298 238 q 366 164 298 164 l 366 164"},1:{ha:522,x_min:14,x_max:488,o:"m 488 0 l 44 0 l 44 164 l 140 164 l 140 614 l 14 614 l 14 727 l 236 778 l 404 778 l 404 164 l 488 164 l 488 0"},2:{ha:649,x_min:12,x_max:626,o:"m 12 0 l 12 86 q 38 238 12 172 q 121 363 63 304 q 281 484 179 421 l 281 484 q 324 517 311 503 q 336 549 336 530 l 336 549 q 277 590 336 590 l 277 590 q 176 567 233 590 q 73 509 119 544 l 73 509 l 14 722 q 161 777 78 754 q 328 799 244 799 l 328 799 q 542 738 466 799 q 618 565 618 677 l 618 565 q 592 460 618 505 q 528 383 565 414 q 430 312 490 352 l 430 312 q 332 237 363 268 q 300 164 300 205 l 300 164 l 421 164 l 421 221 l 626 221 l 626 0 l 12 0"},3:{ha:623,x_min:14,x_max:611,o:"m 486 397 q 546 365 517 389 q 593 303 574 340 q 611 221 611 266 l 611 221 q 533 49 611 111 q 300 -14 454 -14 l 300 -14 q 154 3 227 -14 q 24 43 81 19 l 24 43 l 24 256 q 153 212 86 229 q 279 195 219 195 l 279 195 q 341 208 321 195 q 360 251 360 221 l 360 251 q 290 309 360 309 l 290 309 l 218 309 l 218 473 l 274 473 q 340 529 340 473 l 340 529 q 274 583 340 583 l 274 583 q 174 561 226 583 q 73 502 122 538 l 73 502 l 14 715 q 153 770 75 747 q 310 792 231 792 l 310 792 q 522 734 448 792 q 596 570 596 676 l 596 570 q 565 462 596 504 q 486 397 534 419 l 486 397"},4:{ha:694,x_min:18,x_max:676,o:"m 607 0 l 343 0 l 343 125 l 18 125 l 18 289 l 363 778 l 607 778 l 607 277 l 676 277 l 676 125 l 607 125 l 607 0 m 343 474 l 203 277 l 343 277 l 343 474"},5:{ha:651,x_min:22,x_max:637,o:"m 407 514 q 578 448 519 514 q 637 269 637 382 l 637 269 q 599 120 637 184 q 484 21 560 56 q 300 -14 408 -14 l 300 -14 q 154 3 227 -14 q 24 43 81 19 l 24 43 l 24 256 q 260 195 154 195 l 260 195 q 342 218 315 195 q 369 288 369 240 l 369 288 q 353 343 369 323 q 302 363 337 363 l 302 363 q 259 350 275 363 q 232 311 242 336 l 232 311 l 22 311 l 65 778 l 597 778 l 597 584 l 265 584 l 256 481 q 407 514 319 514 l 407 514"},6:{ha:693,x_min:18,x_max:685,o:"m 449 491 q 623 427 560 491 q 685 249 685 363 l 685 249 q 602 54 685 122 q 366 -14 518 -14 l 366 -14 q 104 82 190 -14 q 18 374 18 177 l 18 374 q 120 691 18 590 q 399 792 221 792 l 399 792 q 535 780 472 792 q 636 747 598 767 l 636 747 l 636 545 q 549 573 598 562 q 445 583 500 583 l 445 583 q 302 477 302 583 l 302 477 l 302 465 q 372 484 333 476 q 449 491 411 491 l 449 491 m 370 164 q 421 185 404 164 q 438 249 438 205 l 438 249 q 421 312 438 289 q 367 334 403 334 l 367 334 q 302 321 333 334 l 302 321 l 302 241 q 319 183 302 201 q 370 164 336 164 l 370 164"},7:{ha:648,x_min:10,x_max:638,o:"m 122 0 q 160 197 122 89 q 254 407 197 305 q 369 584 311 508 l 369 584 l 220 584 l 220 492 l 10 492 l 10 778 l 638 778 l 638 626 q 530 435 583 544 q 441 210 476 325 q 405 0 405 94 l 405 0 l 122 0"},8:{ha:700,x_min:10,x_max:690,o:"m 553 404 q 650 338 609 384 q 690 215 690 291 l 690 215 q 604 44 690 102 q 350 -14 517 -14 l 350 -14 q 97 43 183 -14 q 10 209 10 99 l 10 209 q 54 336 10 288 q 157 404 97 384 l 157 404 q 68 466 104 423 q 32 575 32 508 l 32 575 q 113 737 32 682 q 350 792 193 792 l 350 792 q 586 737 506 792 q 666 575 666 682 l 666 575 q 634 465 666 507 q 553 404 602 423 l 553 404 m 350 614 q 282 544 282 614 l 282 544 q 350 478 282 478 l 350 478 q 418 544 418 478 l 418 544 q 350 614 418 614 l 350 614 m 350 164 q 428 244 428 164 l 428 244 q 408 305 428 284 q 350 326 388 326 l 350 326 q 292 305 312 326 q 272 244 272 284 l 272 244 q 350 164 272 164 l 350 164"},9:{ha:693,x_min:10,x_max:677,o:"m 325 792 q 590 697 503 792 q 677 404 677 601 l 677 404 q 576 87 677 188 q 296 -14 474 -14 l 296 -14 q 160 -1 223 -14 q 59 31 97 11 l 59 31 l 59 233 q 146 206 97 216 q 250 195 195 195 l 250 195 q 393 301 393 195 l 393 301 l 393 312 q 255 287 329 287 l 255 287 q 75 350 139 287 q 10 524 10 412 l 10 524 q 92 725 10 657 q 325 792 174 792 l 325 792 m 257 528 q 275 466 257 488 q 328 444 292 444 l 328 444 q 393 457 362 444 l 393 457 l 393 537 q 376 596 393 577 q 325 614 359 614 l 325 614 q 274 593 291 614 q 257 528 257 572 l 257 528"},A:{ha:806,x_min:12,x_max:794,o:"m 585 778 l 754 164 l 794 164 l 794 0 l 402 0 l 402 164 l 462 164 l 446 244 l 310 244 l 294 164 l 354 164 l 354 0 l 12 0 l 12 164 l 52 164 l 221 778 l 585 778 m 373 549 l 332 350 l 424 350 l 383 549 l 373 549"},B:{ha:775,x_min:20,x_max:763,o:"m 20 0 l 20 164 l 70 164 l 70 614 l 20 614 l 20 778 l 479 778 q 674 727 604 778 q 744 581 744 676 l 744 581 q 716 482 744 522 q 651 421 688 441 q 578 393 613 400 l 578 393 l 578 383 q 706 338 649 376 q 763 202 763 300 l 763 202 q 684 49 763 97 q 479 0 605 0 l 479 0 l 20 0 m 350 450 l 404 450 q 448 466 433 450 q 462 514 462 481 l 462 514 l 462 550 q 448 599 462 583 q 404 614 433 614 l 404 614 l 350 614 l 350 450 m 350 164 l 411 164 q 455 180 440 164 q 469 228 469 195 l 469 228 l 469 272 q 455 321 469 305 q 411 336 440 336 l 411 336 l 350 336 l 350 164"},C:{ha:722,x_min:14,x_max:704,o:"m 408 -14 q 117 82 219 -14 q 14 389 14 178 l 14 389 q 406 792 14 792 l 406 792 q 583 769 501 792 q 704 718 664 746 l 704 718 l 704 468 l 464 468 l 464 540 q 447 596 464 578 q 396 614 430 614 l 396 614 q 345 596 362 614 q 328 540 328 578 l 328 540 l 328 238 q 345 182 328 200 q 396 164 362 164 l 396 164 q 447 182 430 164 q 464 238 464 200 l 464 238 l 464 319 l 704 319 l 704 60 q 583 9 663 32 q 408 -14 502 -14 l 408 -14"},D:{ha:804,x_min:20,x_max:790,o:"m 20 0 l 20 164 l 70 164 l 70 613 l 20 613 l 20 778 l 426 778 q 692 687 593 778 q 790 389 790 595 l 790 389 q 692 92 790 183 q 426 0 593 0 l 426 0 l 20 0 m 350 164 l 408 164 q 459 182 442 164 q 476 238 476 200 l 476 238 l 476 540 q 408 614 476 614 l 408 614 l 350 614 l 350 164"},E:{ha:713,x_min:20,x_max:695,o:"m 695 0 l 20 0 l 20 164 l 70 164 l 70 614 l 20 614 l 20 778 l 695 778 l 695 476 l 471 476 l 471 614 l 350 614 l 350 456 l 438 456 l 438 342 l 350 342 l 350 164 l 471 164 l 471 322 l 695 322 l 695 0"},F:{ha:632,x_min:20,x_max:618,o:"m 481 0 l 20 0 l 20 164 l 70 164 l 70 614 l 20 614 l 20 778 l 618 778 l 618 519 l 441 519 l 441 614 l 350 614 l 350 448 l 501 448 l 501 334 l 350 334 l 350 164 l 481 164 l 481 0"},G:{ha:782,x_min:14,x_max:774,o:"m 774 399 l 774 250 l 724 250 l 724 50 q 596 6 680 25 q 413 -14 511 -14 l 413 -14 q 120 85 226 -14 q 14 389 14 183 l 14 389 q 120 696 14 600 q 421 792 225 792 l 421 792 q 599 772 516 792 q 724 727 682 752 l 724 727 l 724 488 l 474 488 l 474 535 q 457 596 474 577 q 401 614 439 614 l 401 614 q 346 596 363 614 q 328 535 328 577 l 328 535 l 328 243 q 346 183 328 201 q 401 164 363 164 l 401 164 q 457 183 439 164 q 474 243 474 201 l 474 243 l 474 250 l 420 250 l 420 399 l 774 399"},H:{ha:840,x_min:20,x_max:820,o:"m 820 778 l 820 614 l 770 614 l 770 164 l 820 164 l 820 0 l 442 0 l 442 164 l 490 164 l 490 329 l 350 329 l 350 164 l 398 164 l 398 0 l 20 0 l 20 164 l 70 164 l 70 614 l 20 614 l 20 778 l 398 778 l 398 614 l 350 614 l 350 462 l 490 462 l 490 614 l 442 614 l 442 778 l 820 778"},I:{ha:420,x_min:20,x_max:400,o:"m 400 0 l 20 0 l 20 164 l 70 164 l 70 614 l 20 614 l 20 778 l 400 778 l 400 614 l 350 614 l 350 164 l 400 164 l 400 0"},J:{ha:666,x_min:12,x_max:648,o:"m 273 -14 q 127 4 196 -14 q 12 52 58 21 l 12 52 l 12 228 l 212 228 l 212 218 q 264 164 212 164 l 264 164 q 305 179 291 164 q 318 224 318 193 l 318 224 l 318 614 l 228 614 l 228 778 l 648 778 l 648 614 l 598 614 l 598 278 q 512 59 598 131 q 273 -14 426 -14 l 273 -14"},K:{ha:835,x_min:20,x_max:819,o:"m 597 476 l 769 164 l 819 164 l 819 0 l 546 0 l 396 310 l 350 272 l 350 164 l 398 164 l 398 0 l 20 0 l 20 164 l 70 164 l 70 614 l 20 614 l 20 778 l 398 778 l 398 614 l 350 614 l 350 482 l 505 614 l 442 614 l 442 778 l 814 778 l 814 614 l 764 614 l 597 476"},L:{ha:653,x_min:20,x_max:639,o:"m 639 0 l 20 0 l 20 164 l 70 164 l 70 614 l 20 614 l 20 778 l 442 778 l 442 614 l 350 614 l 350 164 l 440 164 l 440 256 l 639 256 l 639 0"},M:{ha:1143,x_min:20,x_max:1123,o:"m 1123 778 l 1123 614 l 1073 614 l 1073 164 l 1123 164 l 1123 0 l 745 0 l 745 164 l 793 164 l 793 514 l 623 0 l 475 0 l 300 509 l 300 164 l 348 164 l 348 0 l 20 0 l 20 164 l 70 164 l 70 614 l 20 614 l 20 778 l 478 778 l 582 466 l 682 778 l 1123 778"},N:{ha:942,x_min:20,x_max:924,o:"m 596 614 l 596 778 l 924 778 l 924 614 l 874 614 l 874 0 l 593 0 l 300 451 l 300 164 l 348 164 l 348 0 l 20 0 l 20 164 l 70 164 l 70 614 l 20 614 l 20 778 l 381 778 l 644 377 l 644 614 l 596 614"},O:{ha:792,x_min:14,x_max:778,o:"m 396 -14 q 114 82 213 -14 q 14 389 14 178 l 14 389 q 114 696 14 600 q 396 792 213 792 l 396 792 q 679 696 579 792 q 778 389 778 600 l 778 389 q 679 82 778 178 q 396 -14 579 -14 l 396 -14 m 396 164 q 447 182 430 164 q 464 238 464 200 l 464 238 l 464 540 q 447 596 464 578 q 396 614 430 614 l 396 614 q 345 596 362 614 q 328 540 328 578 l 328 540 l 328 238 q 345 182 328 199 q 396 164 362 164 l 396 164"},P:{ha:738,x_min:20,x_max:724,o:"m 20 0 l 20 164 l 70 164 l 70 614 l 20 614 l 20 778 l 459 778 q 656 723 588 778 q 724 543 724 667 l 724 543 q 656 364 724 419 q 459 308 588 308 l 459 308 l 350 308 l 350 164 l 446 164 l 446 0 l 20 0 m 350 450 l 384 450 q 442 514 442 450 l 442 514 l 442 550 q 428 599 442 583 q 384 614 413 614 l 384 614 l 350 614 l 350 450"},Q:{ha:810,x_min:14,x_max:794,o:"m 794 -78 q 455 -65 582 -78 q 235 -9 327 -52 q 81 118 143 33 l 81 118 q 14 389 14 215 l 14 389 q 115 692 14 592 q 396 792 215 792 l 396 792 q 677 704 576 792 q 778 439 778 615 l 778 439 q 754 297 778 363 q 669 174 729 230 l 669 174 l 674 164 l 794 164 l 794 -78 m 396 164 q 464 238 464 164 l 464 238 l 464 540 q 396 614 464 614 l 396 614 q 328 540 328 614 l 328 540 l 328 238 q 396 164 328 164 l 396 164"},R:{ha:800,x_min:20,x_max:784,o:"m 20 0 l 20 164 l 70 164 l 70 614 l 20 614 l 20 778 l 479 778 q 676 725 608 778 q 744 553 744 672 l 744 553 q 717 437 744 486 q 640 369 690 388 l 640 369 l 641 359 q 737 241 737 344 l 737 241 l 737 164 l 784 164 l 784 0 l 467 0 l 467 235 q 456 294 467 274 q 420 321 444 314 q 350 328 395 328 l 350 328 l 350 164 l 416 164 l 416 0 l 20 0 m 350 450 l 404 450 q 448 466 433 450 q 462 514 462 481 l 462 514 l 462 550 q 448 599 462 583 q 404 614 433 614 l 404 614 l 350 614 l 350 450"},S:{ha:674,x_min:8,x_max:666,o:"m 330 -14 q 149 3 234 -14 q 17 40 63 19 l 17 40 l 17 238 l 237 238 q 251 193 237 207 q 302 179 265 179 l 302 179 q 347 189 333 179 q 360 217 360 198 l 360 217 q 347 245 360 233 q 302 268 334 256 l 302 268 l 216 298 q 57 397 105 340 q 8 551 8 454 l 8 551 q 86 731 8 669 q 344 792 163 792 l 344 792 q 508 775 431 792 q 631 728 584 757 l 631 728 l 631 549 l 431 549 q 369 599 431 599 l 369 599 q 327 592 339 599 q 314 565 314 584 l 314 565 q 329 538 314 548 q 376 517 343 528 l 376 517 l 463 487 q 618 394 569 451 q 666 243 666 336 l 666 243 q 581 51 666 116 q 330 -14 495 -14 l 330 -14"},T:{ha:780,x_min:14,x_max:766,o:"m 766 778 l 766 536 l 594 536 l 594 614 l 530 614 l 530 164 l 600 164 l 600 0 l 180 0 l 180 164 l 250 164 l 250 614 l 186 614 l 186 536 l 14 536 l 14 778 l 766 778"},U:{ha:781,x_min:16,x_max:765,o:"m 394 -14 q 152 55 237 -14 q 66 279 66 124 l 66 279 l 66 614 l 16 614 l 16 778 l 386 778 l 386 614 l 346 614 l 346 228 q 361 180 346 195 q 404 164 375 164 l 404 164 q 448 180 433 164 q 462 228 462 195 l 462 228 l 462 614 l 422 614 l 422 778 l 765 778 l 765 614 l 715 614 l 715 279 q 632 55 715 124 q 394 -14 549 -14 l 394 -14"},V:{ha:786,x_min:12,x_max:774,o:"m 440 614 l 440 778 l 774 778 l 774 614 l 734 614 l 555 0 l 231 0 l 52 614 l 12 614 l 12 778 l 396 778 l 396 614 l 344 614 l 413 279 l 423 279 l 492 614 l 440 614"},W:{ha:1207,x_min:12,x_max:1195,o:"m 875 614 l 875 778 l 1195 778 l 1195 614 l 1155 614 l 1006 0 l 707 0 l 616 432 l 606 432 l 510 0 l 211 0 l 52 614 l 12 614 l 12 778 l 382 778 l 382 614 l 344 614 l 383 359 l 393 359 l 488 778 l 776 778 l 864 359 l 874 359 l 913 614 l 875 614"},X:{ha:800,x_min:14,x_max:786,o:"m 541 401 l 744 164 l 786 164 l 786 0 l 408 0 l 408 164 l 449 164 l 391 246 l 381 246 l 323 164 l 364 164 l 364 0 l 14 0 l 14 164 l 66 164 l 258 380 l 58 614 l 16 614 l 16 778 l 391 778 l 391 614 l 353 614 l 408 532 l 418 532 l 473 614 l 435 614 l 435 778 l 782 778 l 782 614 l 730 614 l 541 401"},Y:{ha:776,x_min:12,x_max:764,o:"m 457 614 l 457 778 l 764 778 l 764 614 l 724 614 l 531 268 l 531 164 l 581 164 l 581 0 l 201 0 l 201 164 l 251 164 l 251 268 l 52 614 l 12 614 l 12 778 l 399 778 l 399 614 l 364 614 l 423 459 l 433 459 l 492 614 l 457 614"},Z:{ha:689,x_min:14,x_max:675,o:"m 476 164 l 476 246 l 675 246 l 675 0 l 14 0 l 14 144 l 322 614 l 218 614 l 218 532 l 19 532 l 19 778 l 659 778 l 659 634 l 352 164 l 476 164"},a:{ha:615,x_min:18,x_max:601,o:"m 557 164 l 601 164 l 601 0 l 337 0 l 337 68 q 276 11 315 36 q 179 -14 236 -14 l 179 -14 q 61 26 104 -14 q 18 139 18 66 l 18 139 q 339 333 18 328 l 339 333 q 313 380 336 367 q 235 392 290 392 l 235 392 q 139 383 190 392 q 44 357 87 373 l 44 357 l 44 541 q 159 562 97 554 q 280 570 221 570 l 280 570 q 493 516 429 570 q 557 349 557 462 l 557 349 l 557 164 m 337 228 l 337 234 q 268 222 292 234 q 243 182 243 210 l 243 182 q 254 155 243 165 q 283 144 264 144 l 283 144 q 323 166 309 144 q 337 228 337 188 l 337 228"},b:{ha:662,x_min:18,x_max:652,o:"m 447 -14 q 357 11 396 -14 q 292 68 317 36 l 292 68 l 292 0 l 18 0 l 18 164 l 62 164 l 62 614 l 18 614 l 18 778 l 292 778 l 292 488 q 357 545 317 520 q 447 570 396 570 l 447 570 q 601 494 549 570 q 652 278 652 418 l 652 278 q 601 62 652 138 q 447 -14 549 -14 l 447 -14 m 350 164 q 394 180 379 164 q 408 228 408 195 l 408 228 l 408 328 q 394 377 408 361 q 350 392 379 392 l 350 392 q 307 377 321 392 q 292 328 292 361 l 292 328 l 292 228 q 307 180 292 195 q 350 164 321 164 l 350 164"},c:{ha:562,x_min:14,x_max:546,o:"m 317 -14 q 94 61 174 -14 q 14 278 14 135 l 14 278 q 94 496 14 421 q 316 570 174 570 l 316 570 q 448 551 385 570 q 546 508 511 532 l 546 508 l 546 310 l 374 310 l 374 328 q 360 377 374 361 q 316 392 346 392 l 316 392 q 258 328 258 392 l 258 328 l 258 242 q 347 164 258 164 l 347 164 q 540 182 430 164 l 540 182 l 540 25 q 445 -2 506 10 q 317 -14 383 -14 l 317 -14"},d:{ha:658,x_min:10,x_max:644,o:"m 215 -14 q 62 62 113 -14 q 10 278 10 138 l 10 278 q 62 494 10 418 q 215 570 113 570 l 215 570 q 306 545 266 570 q 370 488 345 520 l 370 488 l 370 614 l 311 614 l 311 778 l 600 778 l 600 164 l 644 164 l 644 0 l 370 0 l 370 68 q 306 11 345 36 q 215 -14 266 -14 l 215 -14 m 312 164 q 356 180 341 164 q 370 228 370 195 l 370 228 l 370 328 q 356 377 370 361 q 312 392 341 392 l 312 392 q 269 377 283 392 q 254 328 254 361 l 254 328 l 254 228 q 269 180 254 195 q 312 164 283 164 l 312 164"},e:{ha:594,x_min:14,x_max:582,o:"m 316 -14 q 94 61 174 -14 q 14 278 14 135 l 14 278 q 94 496 14 421 q 316 570 174 570 l 316 570 q 520 497 457 570 q 582 314 582 423 l 582 314 l 582 242 l 258 242 l 258 236 q 280 182 258 199 q 353 164 302 164 l 353 164 q 469 173 414 164 q 565 196 524 182 l 565 196 l 565 36 q 463 2 530 17 q 316 -14 395 -14 l 316 -14 m 258 352 l 374 352 l 374 364 q 360 413 374 398 q 316 428 345 428 l 316 428 q 273 413 287 428 q 258 364 258 397 l 258 364 l 258 352"},f:{ha:384,x_min:18,x_max:459,o:"m 18 0 l 18 164 l 62 164 l 62 392 l 18 392 l 18 556 l 64 556 q 124 735 64 678 q 297 792 183 792 l 297 792 q 396 784 352 792 q 459 766 439 776 l 459 766 l 459 609 q 361 614 406 614 l 361 614 q 307 601 322 614 q 292 556 292 588 l 292 556 l 370 556 l 370 392 l 292 392 l 292 164 l 370 164 l 370 0 l 18 0"},g:{ha:654,x_min:10,x_max:644,o:"m 311 -236 q 174 -226 239 -236 q 72 -203 108 -216 l 72 -203 l 72 -39 q 262 -58 178 -58 l 262 -58 q 345 -40 319 -58 q 370 25 370 -23 l 370 25 l 370 68 q 306 11 345 36 q 215 -14 266 -14 l 215 -14 q 62 62 113 -14 q 10 278 10 138 l 10 278 q 62 494 10 418 q 215 570 113 570 l 215 570 q 306 545 266 570 q 370 488 345 520 l 370 488 l 370 556 l 644 556 l 644 392 l 600 392 l 600 40 q 528 -170 600 -105 q 311 -236 456 -236 l 311 -236 m 312 164 q 356 180 341 164 q 370 228 370 195 l 370 228 l 370 328 q 356 377 370 361 q 312 392 341 392 l 312 392 q 269 377 283 392 q 254 328 254 361 l 254 328 l 254 228 q 269 180 254 195 q 312 164 283 164 l 312 164"},h:{ha:696,x_min:18,x_max:682,o:"m 638 164 l 682 164 l 682 0 l 366 0 l 366 164 l 408 164 l 408 328 q 394 377 408 361 q 352 392 380 392 l 352 392 q 292 328 292 392 l 292 328 l 292 164 l 334 164 l 334 0 l 18 0 l 18 164 l 62 164 l 62 614 l 18 614 l 18 778 l 292 778 l 292 478 q 372 547 329 524 q 472 570 415 570 l 472 570 q 597 518 555 570 q 638 375 638 466 l 638 375 l 638 164"},i:{ha:346,x_min:18,x_max:336,o:"m 270 611 l 66 611 l 66 778 l 270 778 l 270 611 m 336 0 l 18 0 l 18 164 l 62 164 l 62 392 l 18 392 l 18 556 l 292 556 l 292 164 l 336 164 l 336 0"},j:{ha:313,x_min:-104,x_max:287,o:"m 265 611 l 61 611 l 61 778 l 265 778 l 265 611 m 54 -236 q -30 -229 13 -236 q -104 -214 -74 -222 l -104 -214 l -104 -51 q -20 -58 -57 -58 l -20 -58 q 57 14 57 -58 l 57 14 l 57 392 l -10 392 l -10 556 l 287 556 l 287 34 q 229 -169 287 -103 q 54 -236 171 -236 l 54 -236"},k:{ha:678,x_min:18,x_max:664,o:"m 525 297 l 621 164 l 664 164 l 664 0 l 419 0 l 316 192 l 292 192 l 292 0 l 18 0 l 18 164 l 62 164 l 62 614 l 18 614 l 18 778 l 292 778 l 292 372 l 316 372 l 440 556 l 651 556 l 651 392 l 610 392 l 525 297"},l:{ha:350,x_min:18,x_max:336,o:"m 336 -1 l 18 -1 l 18 164 l 62 164 l 62 614 l 18 614 l 18 778 l 292 778 l 292 164 l 336 164 l 336 -1"},m:{ha:1042,x_min:18,x_max:1028,o:"m 984 164 l 1028 164 l 1028 0 l 712 0 l 712 164 l 754 164 l 754 328 q 740 377 754 361 q 698 392 726 392 l 698 392 q 638 328 638 392 l 638 328 l 638 164 l 680 164 l 680 0 l 366 0 l 366 164 l 408 164 l 408 328 q 394 377 408 361 q 352 392 380 392 l 352 392 q 292 328 292 392 l 292 328 l 292 164 l 334 164 l 334 0 l 18 0 l 18 164 l 62 164 l 62 392 l 18 392 l 18 556 l 292 556 l 292 478 q 472 570 364 570 l 472 570 q 572 542 533 570 q 626 461 610 513 l 626 461 q 709 541 662 513 q 818 569 755 569 l 818 569 q 943 517 901 569 q 984 374 984 465 l 984 374 l 984 164"},n:{ha:696,x_min:18,x_max:682,o:"m 638 164 l 682 164 l 682 0 l 366 0 l 366 164 l 408 164 l 408 328 q 394 377 408 361 q 352 392 380 392 l 352 392 q 292 328 292 392 l 292 328 l 292 164 l 334 164 l 334 0 l 18 0 l 18 164 l 62 164 l 62 392 l 18 392 l 18 556 l 292 556 l 292 478 q 472 570 364 570 l 472 570 q 597 518 555 570 q 638 375 638 466 l 638 375 l 638 164"},o:{ha:632,x_min:14,x_max:618,o:"m 316 -14 q 94 61 174 -14 q 14 278 14 135 l 14 278 q 94 496 14 421 q 316 570 174 570 l 316 570 q 539 495 460 570 q 618 278 618 419 l 618 278 q 538 61 618 135 q 316 -14 458 -14 l 316 -14 m 316 164 q 360 180 345 164 q 374 228 374 195 l 374 228 l 374 328 q 360 377 374 361 q 316 392 345 392 l 316 392 q 273 377 287 392 q 258 328 258 361 l 258 328 l 258 228 q 273 180 258 195 q 316 164 287 164 l 316 164"},p:{ha:658,x_min:14,x_max:648,o:"m 14 -222 l 14 -58 l 58 -58 l 58 392 l 14 392 l 14 556 l 288 556 l 288 488 q 353 545 313 520 q 443 570 392 570 l 443 570 q 597 494 545 570 q 648 278 648 418 l 648 278 q 597 62 648 138 q 443 -14 545 -14 l 443 -14 q 353 11 392 -14 q 288 68 313 36 l 288 68 l 288 -58 l 357 -58 l 357 -222 l 14 -222 m 346 164 q 390 180 375 164 q 404 228 404 195 l 404 228 l 404 328 q 390 377 404 361 q 346 392 375 392 l 346 392 q 303 377 317 392 q 288 328 288 361 l 288 328 l 288 228 q 303 180 288 195 q 346 164 317 164 l 346 164"},q:{ha:652,x_min:10,x_max:644,o:"m 301 -222 l 301 -58 l 370 -58 l 370 68 q 306 11 345 36 q 215 -14 266 -14 l 215 -14 q 62 62 113 -14 q 10 278 10 138 l 10 278 q 62 494 10 418 q 215 570 113 570 l 215 570 q 306 545 266 570 q 370 488 345 520 l 370 488 l 370 556 l 644 556 l 644 392 l 600 392 l 600 -222 l 301 -222 m 312 164 q 356 180 341 164 q 370 228 370 195 l 370 228 l 370 328 q 356 377 370 361 q 312 392 341 392 l 312 392 q 269 377 283 392 q 254 328 254 361 l 254 328 l 254 228 q 269 180 254 195 q 312 164 283 164 l 312 164"},r:{ha:527,x_min:20,x_max:513,o:"m 445 570 q 483 566 465 570 q 513 556 501 562 l 513 556 l 513 365 q 425 382 472 382 l 425 382 q 328 349 362 382 q 294 251 294 316 l 294 251 l 294 164 l 384 164 l 384 0 l 20 0 l 20 164 l 64 164 l 64 392 l 20 392 l 20 556 l 294 556 l 294 483 q 358 548 322 525 q 445 570 394 570 l 445 570"},s:{ha:519,x_min:18,x_max:505,o:"m 261 -14 q 18 26 135 -14 l 18 26 l 18 174 l 180 174 l 180 164 q 241 116 180 116 l 241 116 q 295 153 295 116 l 295 153 q 280 183 295 173 q 225 200 264 193 l 225 200 l 175 209 q 18 387 18 237 l 18 387 q 84 522 18 474 q 262 570 150 570 l 262 570 q 473 528 387 570 l 473 528 l 473 389 l 321 389 l 321 399 q 308 430 321 419 q 268 440 294 440 l 268 440 q 218 408 218 440 l 218 408 q 232 382 218 391 q 283 365 246 373 l 283 365 l 340 354 q 467 291 429 337 q 505 173 505 245 l 505 173 q 442 34 505 82 q 261 -14 378 -14 l 261 -14"},t:{ha:451,x_min:8,x_max:437,o:"m 265 -14 q 106 38 159 -14 q 52 211 52 89 l 52 211 l 52 392 l 8 392 l 8 556 q 65 576 46 556 q 84 629 84 595 l 84 629 l 84 674 l 296 674 l 296 556 l 431 556 l 431 392 l 296 392 l 296 228 q 311 180 296 195 q 354 164 325 164 l 354 164 q 437 173 392 164 l 437 173 l 437 16 q 362 -4 409 5 q 265 -14 314 -14 l 265 -14"},u:{ha:686,x_min:12,x_max:676,o:"m 632 164 l 676 164 l 676 0 l 402 0 l 402 78 q 222 -14 330 -14 l 222 -14 q 98 38 139 -14 q 56 181 56 90 l 56 181 l 56 392 l 12 392 l 12 556 l 286 556 l 286 228 q 301 180 286 195 q 344 164 315 164 l 344 164 q 388 180 373 164 q 402 228 402 195 l 402 228 l 402 392 l 348 392 l 348 556 l 632 556 l 632 164"},v:{ha:651,x_min:10,x_max:641,o:"m 476 0 l 178 0 l 52 392 l 10 392 l 10 556 l 319 556 l 319 392 l 277 392 l 330 194 l 340 194 l 393 392 l 351 392 l 351 556 l 641 556 l 641 392 l 599 392 l 476 0"},w:{ha:956,x_min:10,x_max:946,o:"m 414 0 l 184 0 l 52 392 l 10 392 l 10 556 l 319 556 l 319 392 l 277 392 l 313 236 l 323 236 l 396 556 l 580 556 l 653 236 l 663 236 l 698 392 l 656 392 l 656 556 l 946 556 l 946 392 l 904 392 l 777 0 l 534 0 l 479 278 l 469 278 l 414 0"},x:{ha:636,x_min:12,x_max:624,o:"m 463 286 l 592 164 l 624 164 l 624 0 l 312 0 l 312 164 l 340 164 l 301 223 l 291 223 l 252 164 l 280 164 l 280 0 l 12 0 l 12 164 l 54 164 l 175 272 l 48 392 l 16 392 l 16 556 l 328 556 l 328 392 l 300 392 l 339 334 l 349 334 l 388 392 l 360 392 l 360 556 l 620 556 l 620 392 l 578 392 l 463 286"},y:{ha:632,x_min:10,x_max:620,o:"m 342 556 l 620 556 l 620 392 l 582 392 l 451 45 q 339 -151 402 -86 q 173 -217 276 -217 l 173 -217 q 88 -208 131 -217 q 10 -185 45 -200 l 10 -185 l 10 -4 l 148 -4 l 148 -14 q 174 -39 148 -39 l 174 -39 q 209 -17 197 -39 l 209 -17 l 51 392 l 13 392 l 13 556 l 310 556 l 310 392 l 276 392 l 328 236 l 376 392 l 342 392 l 342 556"},z:{ha:568,x_min:14,x_max:554,o:"m 554 0 l 14 0 l 14 149 l 258 392 l 169 392 l 169 356 l 20 356 l 20 556 l 545 556 l 545 413 l 307 164 l 403 164 l 403 220 l 554 220 l 554 0"}," ":{ha:300,x_min:0,x_max:0,o:""},".":{ha:244,x_min:40,x_max:196,o:"m 196 0 l 40 0 l 40 164 l 196 164 l 196 0"},",":{ha:245,x_min:40,x_max:197,o:"m 126 -161 l 40 -161 l 92 0 l 41 0 l 41 164 l 197 164 l 197 0 l 126 -161"},"!":{ha:339,x_min:20,x_max:319,o:"m 272 219 l 66 219 l 20 728 l 20 778 l 319 778 l 319 728 l 272 219 m 282 0 l 56 0 l 56 164 l 282 164 l 282 0"},"?":{ha:630,x_min:14,x_max:620,o:"m 153 219 l 153 265 q 170 344 153 310 q 209 398 186 377 q 268 444 232 419 l 268 444 q 321 487 304 469 q 338 530 338 505 l 338 530 q 278 570 338 570 l 278 570 q 173 552 231 570 q 67 511 115 534 l 67 511 l 14 715 q 167 769 80 746 q 340 792 254 792 l 340 792 q 489 767 425 792 q 586 694 552 741 q 620 585 620 647 l 620 585 q 603 494 620 531 q 560 434 585 457 q 494 382 535 410 l 494 382 q 440 340 460 358 q 406 296 419 322 q 392 234 392 270 l 392 234 l 392 219 l 153 219 m 391 0 l 153 0 l 153 164 l 391 164 l 391 0"},"-":{ha:389,x_min:34,x_max:355,o:"m 355 199 l 34 199 l 34 363 l 355 363 l 355 199"},"'":{ha:193,x_min:25,x_max:168,o:"m 153 548 l 40 548 l 25 778 l 168 778 l 153 548"},'"':{ha:356,x_min:25,x_max:331,o:"m 316 548 l 203 548 l 188 778 l 331 778 l 316 548 m 153 548 l 40 548 l 25 778 l 168 778 l 153 548"}},familyName:"Alfa Slab One",ascender:1036,descender:-333,underlinePosition:-75,underlineThickness:50,boundingBox:{yMin:-327,xMin:-319,yMax:1238,xMax:1590},resolution:1e3,original_font_information:{format:0,copyright:'Copyright 2016 The Alfa Slab One Project Authors (http://www.jmsole.cl | info@jmsole.cl), with Reserved Font Name "Alfa Slab".',fontFamily:"Alfa Slab One",fontSubfamily:"Regular",version:"Version 2.000"},cssFontWeight:"normal",cssFontStyle:"normal"},FULL_TEXT="MINI",entrancePrefersReducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches,miniSeenBefore=("1"===sessionStorage.getItem("mini-entrance-seen"));function easeOutBack(l){const t=1.70158;return 1+2.70158*Math.pow(l-1,3)+t*Math.pow(l-1,2)}function easeInOutCubic(l){return l<.5?4*l*l*l:1-Math.pow(-2*l+2,3)/2}function makeParticleTexture(){const l=document.createElement("canvas");l.width=64,l.height=64;const t=l.getContext("2d"),e=t.createRadialGradient(32,32,0,32,32,32);return e.addColorStop(0,"rgba(255,255,255,1)"),e.addColorStop(.4,"rgba(255,255,255,0.6)"),e.addColorStop(1,"rgba(255,255,255,0)"),t.fillStyle=e,t.fillRect(0,0,64,64),new THREE.CanvasTexture(l)}const preloadEntrance=()=>{try{const l=new THREE.Font(EMBEDDED_FONT_DATA),t=makeParticleTexture();window.MINI_ENV=new MiniLetterEnvironment(l,t)}catch(l){window.MINI_ENTRANCE_FAILED=!0,window.MINI_ENTRANCE_FALLBACK&&window.MINI_ENTRANCE_FALLBACK()}};"complete"===document.readyState||"loading"!==document.readyState&&!document.documentElement.doScroll?preloadEntrance():document.addEventListener("DOMContentLoaded",preloadEntrance);class MiniLetterReel{constructor(l,t,e,i,n,s){this.scene=l,this.font=t,this.particleTex=e,this.correctChar=i,this.textSize=n,this.amount=s,this.pulseStrength=1.1*n,this.colorChange=new THREE.Color,this.mesh=null,this.geometryCopy=null,this.ready=!1,this.scatterStart=null,this.particleDelay=null,this.pulsing=!1,this.pulseStart=0,this.build()}build(){let l=[],t=this.font.generateShapes(this.correctChar,this.textSize),e=[];for(let l=0;l<t.length;l++){let i=t[l];if(i.holes&&i.holes.length>0)for(let l=0;l<i.holes.length;l++)e.push(i.holes[l])}t.push.apply(t,e);let i=[],n=[];for(let e=0;e<t.length;e++){let s=t[e];const a="Path"==s.type?Math.max(4,Math.round(this.amount/2)):Math.max(8,this.amount);s.getSpacedPoints(a).forEach(t=>{l.push(new THREE.Vector3(t.x,t.y,0)),i.push(.94,.14,.16),n.push(1.35)})}0===l.length&&(l.push(new THREE.Vector3(0,0,0)),i.push(.94,.14,.16),n.push(0));let s=(new THREE.BufferGeometry).setFromPoints(l);s.setAttribute("customColor",new THREE.Float32BufferAttribute(i,3)),s.setAttribute("size",new THREE.Float32BufferAttribute(n,1));const a=new THREE.ShaderMaterial({uniforms:{color:{value:new THREE.Color(16777215)},pointTexture:{value:this.particleTex}},vertexShader:document.getElementById("vertexshader").textContent,fragmentShader:document.getElementById("fragmentshader").textContent,blending:THREE.AdditiveBlending,depthTest:!1,transparent:!0});this.mesh=new THREE.Points(s,a),this.mesh.frustumCulled=!1,this.scene.add(this.mesh),this.geometryCopy=new THREE.BufferGeometry,this.geometryCopy.copy(this.mesh.geometry),this.mesh.geometry.computeBoundingBox();const o=this.mesh.geometry.boundingBox;this.boundsMinX=o.min.x,this.boundsMaxX=o.max.x,this.boundsMinY=o.min.y,this.boundsMaxY=o.max.y,this.centerX=(o.min.x+o.max.x)/2,this.centerY=(o.min.y+o.max.y)/2}initScatter(l,t){const e=this.mesh.geometry.attributes.position,i=e.count;this.scatterStart=new Float32Array(3*i),this.particleDelay=new Float32Array(i);for(let n=0;n<i;n++){const i=(Math.random()-.5)*l,s=(Math.random()-.5)*t,a=60*(Math.random()-.5)-20;this.scatterStart[3*n]=i,this.scatterStart[3*n+1]=s,this.scatterStart[3*n+2]=a,this.particleDelay[n]=.3*Math.random(),e.setXYZ(n,i,s,a)}e.needsUpdate=!0}updateConverge(l){const t=this.mesh.geometry.attributes.position,e=this.geometryCopy.attributes.position;for(let i=0,n=t.count;i<n;i++){const n=this.particleDelay[i];let s=(l-n)/(1-n);s=Math.min(1,Math.max(0,s));const a=easeOutBack(s),o=this.scatterStart[3*i],h=this.scatterStart[3*i+1],q=this.scatterStart[3*i+2],r=e.getX(i),m=e.getY(i),c=e.getZ(i);t.setXYZ(i,o+(r-o)*a,h+(m-h)*a,q+(c-q)*a)}t.needsUpdate=!0}triggerPulse(){this.pulsing=!0,this.pulseStart=performance.now()}updatePulse(){if(!this.pulsing)return;const l=performance.now()-this.pulseStart,t=Math.min(1,l/650),e=this.mesh.geometry.attributes.position,i=this.geometryCopy.attributes.position,n=Math.sin(t*Math.PI)*this.pulseStrength;for(let l=0,t=e.count;l<t;l++){const t=i.getX(l),s=i.getY(l),a=i.getZ(l),o=t-this.centerX,h=s-this.centerY,q=Math.sqrt(o*o+h*h)||1;e.setXYZ(l,t+o/q*n,s+h/q*n,a)}if(e.needsUpdate=!0,t>=1){this.pulsing=!1;for(let l=0,t=e.count;l<t;l++)e.setXYZ(l,i.getX(l),i.getY(l),i.getZ(l));e.needsUpdate=!0}}interact(l,t,e,i,n,s,g){if(!this.ready)return;const a=this.mesh.geometry.attributes.position,o=this.geometryCopy.attributes.position,h=this.mesh.geometry.attributes.customColor,q=this.mesh.geometry.attributes.size,r=g||1.35;for(let m=0,c=a.count;m<c;m++){const c=o.getX(m),d=o.getY(m),x=o.getZ(m);let u=a.getX(m),p=a.getY(m),_=a.getZ(m);this.colorChange.setHSL(0,.85,.5),h.setXYZ(m,this.colorChange.r,this.colorChange.g,this.colorChange.b),h.needsUpdate=!0,q.array[m]=r,q.needsUpdate=!0;let g=l-u,y=t-p;const E=Math.sqrt(g*g+y*y);const w=-n/((g=l-u)*g+(y=t-p)*y);if(e){const l=Math.atan2(y,g);u-=w*Math.cos(l),p-=w*Math.sin(l),this.colorChange.setHSL(.58+.05*s,.9,.6),h.setXYZ(m,this.colorChange.r,this.colorChange.g,this.colorChange.b),h.needsUpdate=!0,(u>c+70||u<c-70||p>d+70||p<d-70)&&(this.colorChange.setHSL(.62,.95,.55),h.setXYZ(m,this.colorChange.r,this.colorChange.g,this.colorChange.b),h.needsUpdate=!0)}else if(E<n){if(m%5==0){const l=Math.atan2(y,g);u-=.03*Math.cos(l),p-=.03*Math.sin(l),this.colorChange.setHSL(.55,.9,.65),h.setXYZ(m,this.colorChange.r,this.colorChange.g,this.colorChange.b),h.needsUpdate=!0,q.array[m]=r/1.2,q.needsUpdate=!0}else{const l=Math.atan2(y,g);u+=w*Math.cos(l),p+=w*Math.sin(l),q.array[m]=1.3*r,q.needsUpdate=!0}(u>c+10||u<c-10||p>d+10||p<d-10)&&(this.colorChange.setHSL(.62,.95,.55),h.setXYZ(m,this.colorChange.r,this.colorChange.g,this.colorChange.b),h.needsUpdate=!0,q.array[m]=.75,q.needsUpdate=!0)}u+=(c-u)*i,p+=(d-p)*i,_+=(x-_)*i,a.setXYZ(m,u,p,_),a.needsUpdate=!0}}}class MiniLetterEnvironment{constructor(l,t){this.font=l,this.particleTex=t,this.container=document.querySelector("#particles"),this.scene=new THREE.Scene,this.raycaster=new THREE.Raycaster,this.mouse=new THREE.Vector2(-200,200),this.buttonDown=!1,this.ease=.05,this.introDone=!1,this.lastResizeWidth=window.innerWidth,this.assetsReady=!!window.MINI_ASSETS_READY,this.createCamera(),this.createRenderer(),this.textSize=this.computeFitTextSize(),this.amountPerLetter=Math.round(650+this.textSize/14*550),this.createPlaneArea(),this.createLetters(),this.bindEvents(),this.bindAssetReadiness(),this.startReveal(),this.renderer.setAnimationLoop(()=>{this.render()})}computeFitTextSize(){const l=this.font.data;let t=0;"MINI".split("").forEach(e=>{const i=l.glyphs[e];t+=(i?i.ha:.5*l.resolution)/l.resolution}),t+=3*.1;let e=.82*this.visibleWidthAtZDepth(0,this.camera)/t;return Math.max(3,Math.min(26,e))}createCamera(){this.camera=new THREE.PerspectiveCamera(65,this.container.clientWidth/this.container.clientHeight,1,1e4),this.camera.position.set(0,0,100)}createRenderer(){this.renderer=new THREE.WebGLRenderer({alpha:!0,antialias:!0}),this.renderer.setSize(this.container.clientWidth,this.container.clientHeight),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio,2)),this.renderer.setClearColor(0,0),this.container.appendChild(this.renderer.domElement)}createPlaneArea(){const l=new THREE.PlaneGeometry(this.visibleWidthAtZDepth(100,this.camera),this.visibleHeightAtZDepth(100,this.camera));if(this.planeArea)return this.planeArea.geometry.dispose(),void(this.planeArea.geometry=l);const t=new THREE.MeshBasicMaterial({color:65280,transparent:!0,opacity:0});this.planeArea=new THREE.Mesh(l,t),this.planeArea.visible=!1,this.scene.add(this.planeArea)}createLetters(){const l=this.font.data,t=this.textSize/l.resolution,e=.1*this.textSize,i="MINI".split("").map(i=>{const n=l.glyphs[i];return(n?n.ha:.5*l.resolution)*t+e}),n=i.reduce((l,t)=>l+t,0)-e;this.letters=[];let s=-n/2;for(let l=0;l<4;l++){const t="MINI"[l],e=new MiniLetterReel(this.scene,this.font,this.particleTex,t,this.textSize,this.amountPerLetter);e.mesh.position.x=s,e.mesh.position.y=0,this.letters.push(e),s+=i[l]}}startReveal(){if(this.cameraRestZ=100,entrancePrefersReducedMotion||miniSeenBefore)return this.letters.forEach(l=>{l.ready=!0}),this.introDone=!0,this.camera.position.z=this.cameraRestZ,void this.onRevealComplete();const l=this.visibleWidthAtZDepth(0,this.camera);this.letters.forEach(t=>t.initScatter(1.1*l,26)),this.cameraDollyDistance=200,this.camera.position.z=this.cameraRestZ+this.cameraDollyDistance,this.convergeDuration=2e3,this.convergeStart=performance.now()}bindAssetReadiness(){this.assetsReady||window.addEventListener("mini-assets-ready",()=>{this.assetsReady=!0,this.maybeReveal()},{once:!0})}maybeReveal(){if(!this.introDone||!this.assetsReady)return;const l=document.getElementById("tagline"),t=document.getElementById("enterBtnWrap"),e=document.getElementById("enterHint");l&&l.classList.add("show"),t&&t.classList.add("show"),e&&e.classList.add("show")}onRevealComplete(){this.maybeReveal()}bindEvents(){let l=null;const t=()=>{l&&cancelAnimationFrame(l),l=requestAnimationFrame(()=>this.onWindowResize())};window.addEventListener("resize",t),window.addEventListener("orientationchange",t),this.container.addEventListener("mousedown",this.onDown.bind(this)),this.container.addEventListener("mousemove",this.onMove.bind(this)),window.addEventListener("mouseup",this.onUp.bind(this)),this.container.addEventListener("touchstart",this.onTouchStart.bind(this),{passive:!0}),this.container.addEventListener("touchmove",this.onTouchMove.bind(this),{passive:!0}),window.addEventListener("touchend",this.onUp.bind(this)),window.addEventListener("touchcancel",this.onUp.bind(this)),window.addEventListener("blur",this.onUp.bind(this)),document.addEventListener("visibilitychange",()=>{document.hidden&&this.onUp()}),this.container.addEventListener("click",this.onLetterClick.bind(this))}onLetterClick(l){if(!this.introDone)return;this.updateMouseFromClient(l.clientX,l.clientY),this.raycaster.setFromCamera(this.mouse,this.camera);const t=this.raycaster.intersectObject(this.planeArea);if(!t.length)return;const e=t[0].point.x,i=t[0].point.y;let n=null,s=null,a=1/0;this.letters.forEach(l=>{const t=l.mesh.position.x+l.boundsMinX,o=l.mesh.position.x+l.boundsMaxX,h=l.mesh.position.y+l.boundsMinY,q=l.mesh.position.y+l.boundsMaxY;!n&&e>=t&&e<=o&&i>=h&&i<=q&&(n=l);const r=l.mesh.position.x+l.centerX,m=l.mesh.position.y+l.centerY,c=Math.hypot(e-r,i-m);c<a&&(a=c,s=l)});const o=n||s;o&&o.triggerPulse()}updateMouseFromClient(l,t){const e=this.container.getBoundingClientRect();this.mouse.x=(l-e.left)/e.width*2-1,this.mouse.y=-(t-e.top)/e.height*2+1}onDown(l){this.updateMouseFromClient(l.clientX,l.clientY),this.buttonDown=!0,this.ease=.01}onMove(l){this.updateMouseFromClient(l.clientX,l.clientY)}onUp(){this.buttonDown=!1,this.ease=.05}onTouchStart(l){const t=l.touches[0];t&&(this.updateMouseFromClient(t.clientX,t.clientY),this.buttonDown=!0,this.ease=.01)}onTouchMove(l){const t=l.touches[0];t&&this.updateMouseFromClient(t.clientX,t.clientY)}onWindowResize(){if(!this.container.clientWidth||!this.container.clientHeight)return;this.camera.aspect=this.container.clientWidth/this.container.clientHeight,this.camera.updateProjectionMatrix(),this.renderer.setSize(this.container.clientWidth,this.container.clientHeight),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio,2)),this.createPlaneArea();Math.abs(window.innerWidth-this.lastResizeWidth)>40&&this.introDone&&(this.lastResizeWidth=window.innerWidth,this.rebuildLettersForViewport())}rebuildLettersForViewport(){const l=this.computeFitTextSize();Math.abs(l-this.textSize)<.4||(this.textSize=l,this.amountPerLetter=Math.round(650+this.textSize/14*550),this.letters.forEach(l=>{this.scene.remove(l.mesh),l.mesh.geometry.dispose(),l.mesh.material.dispose()}),this.createLetters(),this.letters.forEach(l=>{l.ready=!0}))}visibleHeightAtZDepth(l,t){const e=t.position.z;l<e?l-=e:l+=e;const i=t.fov*Math.PI/180;return 2*Math.tan(i/2)*Math.abs(l)}visibleWidthAtZDepth(l,t){return this.visibleHeightAtZDepth(l,t)*t.aspect}render(){if(!this.introDone){const l=performance.now()-this.convergeStart,t=Math.min(1,l/this.convergeDuration);this.letters.forEach(l=>l.updateConverge(t));const e=easeInOutCubic(t);return this.camera.position.z=this.cameraRestZ+this.cameraDollyDistance*(1-e),t>=1&&(this.introDone=!0,this.camera.position.z=this.cameraRestZ,this.letters.forEach(l=>{l.ready=!0}),this.onRevealComplete()),void this.renderer.render(this.scene,this.camera)}const l=.001*performance.now()%12/12,t=(1+Math.sin(2*l*Math.PI))/6;this.raycaster.setFromCamera(this.mouse,this.camera);const e=this.raycaster.intersectObject(this.planeArea),i=e.length>0,n=i?e[0].point.x:0,s=i?e[0].point.y:0;const breatheSize=1.35*(1+Math.sin(performance.now()*.0016)*.12);this.letters.forEach(l=>{l.updatePulse();const e=i?n-l.mesh.position.x:1e6,a=i?s-l.mesh.position.y:1e6;l.interact(e,a,i&&this.buttonDown,this.ease,250,t,breatheSize)}),this.renderer.render(this.scene,this.camera)}}!function(){const l=document.getElementById("enterBtn"),t=document.getElementById("enterBtnWrap"),e=document.getElementById("entrance");function i(){e.classList.add("hidden"),document.body.style.overflow="",sessionStorage.setItem("mini-entrance-seen","1");var m=document.querySelector("main");if(m)m.removeAttribute("inert");var a=document.getElementById("audio-element");if(a){a.muted=false;var p=a.play();p&&p.catch&&p.catch(function(){})}}function n(){if(t&&t.classList.contains("show"))return;const l=document.getElementById("tagline"),e=document.getElementById("enterHint");l&&l.classList.add("show"),t&&t.classList.add("show"),e&&e.classList.add("show")}l&&e&&(document.body.style.overflow="hidden",l.addEventListener("click",i),document.addEventListener("keydown",function(l){"Enter"===l.key&&t&&t.classList.contains("show")&&i()}),window.MINI_ENTRANCE_FALLBACK=n,window.MINI_ENTRANCE_FAILED&&n(),setTimeout(n,7e3))}();</script>
+<script>
+(function(){
+  var skipBtn = document.getElementById('entranceSkip');
+  var entrance = document.getElementById('entrance');
+  if(!skipBtn || !entrance) return;
+
+  function skipIntro(){
+    var env = window.MINI_ENV;
+    if(!env || env.introDone){
+      skipBtn.classList.add('hide');
+      return;
+    }
+    env.introDone = true;
+    env.camera.position.z = env.cameraRestZ;
+    env.letters.forEach(function(reel){
+      reel.ready = true;
+      var pos = reel.mesh.geometry.attributes.position;
+      var copy = reel.geometryCopy.attributes.position;
+      for(var i = 0; i < pos.count; i++){
+        pos.setXYZ(i, copy.getX(i), copy.getY(i), copy.getZ(i));
+      }
+      pos.needsUpdate = true;
+    });
+    env.onRevealComplete();
+    skipBtn.classList.add('hide');
+  }
+  skipBtn.addEventListener('click', skipIntro);
+
+  // Hide the skip link automatically once controls are showing (nothing left to skip)
+  var btnWrap = document.getElementById('enterBtnWrap');
+  if(btnWrap){
+    var obs = new MutationObserver(function(){
+      if(btnWrap.classList.contains('show')) skipBtn.classList.add('hide');
+    });
+    obs.observe(btnWrap, { attributes: true, attributeFilter: ['class'] });
+  }
+})();
+
+/* ---------- custom reticle cursor: dot snaps to the pointer instantly,
+   the outer ring trails behind with easing for a bit of weight/inertia ---------- */
+(function () {
+  const dot = document.getElementById( 'cursorDot' );
+  const ring = document.getElementById( 'cursorRing' );
+  if ( !dot || !ring || !window.matchMedia( '(pointer:fine)' ).matches ) return;
+
+  let mx = -100, my = -100, rx = -100, ry = -100;
+
+  window.addEventListener( 'mousemove', ( e ) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+  });
+
+  const btn = document.getElementById( 'enterBtn' );
+  if ( btn ){
+    btn.addEventListener( 'mouseenter', () => { ring.classList.add( 'active' ); });
+    btn.addEventListener( 'mouseleave', () => { ring.classList.remove( 'active' ); });
+  }
+
+  const reduceMotionRef = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function tick(){
+    rx += ( mx - rx ) * 0.18;
+    ry += ( my - ry ) * 0.18;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+    requestAnimationFrame( tick );
+  }
+  if ( !reduceMotionRef ) tick();
+  else {
+    window.addEventListener( 'mousemove', () => {
+      ring.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+    });
+  }
+})();
+
+/* ---------- magnetic button: gently pulls toward the cursor when nearby ---------- */
+(function () {
+  const btn = document.getElementById( 'enterBtn' );
+  const reduceMotionRef = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if ( !btn || reduceMotionRef || !window.matchMedia( '(pointer:fine)' ).matches ) return;
+
+  const pullRadius = 140;
+  const maxPull = 14;
+
+  window.addEventListener( 'mousemove', ( e ) => {
+    const rect = btn.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = e.clientX - cx, dy = e.clientY - cy;
+    const dist = Math.sqrt( dx*dx + dy*dy );
+    if ( dist < pullRadius ){
+      const pull = ( 1 - dist / pullRadius ) * maxPull;
+      const angle = Math.atan2( dy, dx );
+      btn.style.transform = `rotate(-1.5deg) translate(${Math.cos(angle)*pull}px, ${Math.sin(angle)*pull}px)`;
+    } else {
+      btn.style.transform = 'rotate(-1.5deg)';
+    }
+  });
+})();
+</script>
+
+  <div id="vanta-bg"></div>
+  <canvas id="petals-canvas"></canvas>
+  <div class="grain-overlay"></div>
+
+  <div class="mini-walker" id="mini-walker" aria-hidden="true">
+    <img id="mini-walker-img" src="assets/mini-pose-01.png" alt="">
+  </div>
+
+  <div class="mini-walker mini-walker-alt" id="mini-walker-2" aria-hidden="true">
+    <img id="mini-walker-img-2" src="cutouts/mini_cutouts (1).png" alt="">
+  </div>
+
+  <div class="lightbox-overlay" id="lightbox-overlay">
+    <img id="lightbox-img" src="" alt="Expanded concept sheet">
+  </div>
+
+  <div class="floating-audio-widget" id="floating-audio-widget">
+    <button class="fab-btn" id="floating-audio-btn" type="button" aria-label="Play music" aria-pressed="false" aria-expanded="false">
+      <span class="fab-ring" aria-hidden="true"></span>
+      <span class="fab-icon" aria-hidden="true">
+        <svg id="fab-icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="fab-icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </span>
+    </button>
+    <div class="fab-volume-wrap" id="fab-volume-wrap">
+      <input type="range" class="fab-volume" id="fab-volume" min="0" max="1" step="0.05" value="0.5" aria-label="Volume">
+    </div>
+  </div>
+
+  <main inert>
+
+    <!-- ================= HERO ================= -->
+    <section class="frame-section" id="hero">
+      <div class="console">
+        <div class="console-dots"></div>
+        <div class="bracket tl"></div>
+        <div class="bracket br"></div>
+        <div class="nihility-bg-text">NIHILITY NIHILITY NIHILITY</div>
+
+        <section class="left-panel">
+          <div class="hero-quote-header">
+            Fret not! The hero Chixia has arrived!
+            <span class="quote-jp">Speed first. Think later.</span>
+          </div>
+
+          <div class="main-title-group">
+            <span class="japanese-sub">BLAZING BRIGHT</span>
+            <h1 class="main-kanji">MINI</h1>
+            <br>
+            <div class="numeric-badge">1542991141</div>
+
+            <div class="music-player" id="player-card">
+              <audio id="audio-element" preload="none" src="music/Fall_To_Hell_DOLLWAVE.mp3"></audio>
+
+              <div class="player-info">
+                <span class="track-title" id="track-name">Fall To Hell — DOLLWAVE</span>
+                <span class="time-display" id="time-track">0:00 / 0:00</span>
+              </div>
+
+              <div class="progress-container" id="progress-cont" role="slider" aria-label="Seek" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress-bar" id="progress-actual"></div>
+              </div>
+
+              <div class="player-controls">
+                <button class="play-btn" id="play-trigger">Play</button>
+                <div class="volume-container">
+                  <span class="volume-label">VOL</span>
+                  <input type="range" class="volume-slider" id="vol-slider" min="0" max="1" step="0.05" value="0.5" aria-label="Volume">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="left-footer">
+            <p class="game-meta">OVERDRIVE MODE // FREQUENCY: STABLE</p>
+            <div class="tag-pill">BOOM BOOM!</div>
+          </div>
+        </section>
+
+        <section class="center-panel">
+          <div id="cursor-glow"></div>
+          <div class="art-window">
+            <span class="large-bg-kanji">A</span>
+            <div class="tech-overlay">
+              <span>STATUS: ACTIVE</span>
+              <span>GLASS: JINSHI_DARK</span>
+              <span>UPTIME: <span class="uptime-readout" id="uptime-readout">00:00:00</span></span>
+              <div class="live-pulse-bar"></div>
+            </div>
+          </div>
+          <div class="character-root">
+            <img src="assets/hero.png" alt="Chixia character render" class="character-img" id="hero-char-img">
+          </div>
+        </section>
+
+        <aside class="right-panel">
+          <div class="pill-box">MINI</div>
+          <div class="vertical-text-wrap">
+            <span class="v-kanji-title">MINI</span>
+            <span class="diamond">✦</span>
+            <span class="v-latin-sub">CREATIVE</span>
+          </div>
+          <div class="panel-footer-stamp">
+            <div style="color:rgba(255,255,255,0.2); font-size:10px;">—</div>
+            <p class="micro-japanese">SYSTEM ONLINE</p>
+          </div>
+        </aside>
+
+        <div class="scroll-cue">
+          <span>Scroll</span>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROFILE ================= -->
+    <section class="frame-section" id="profile">
+      <div class="console">
+        <div class="console-dots"></div>
+        <div class="bracket tl"></div>
+        <div class="bracket br"></div>
+        <span class="section-eyebrow">01 // PROFILE</span>
+
+        <div class="profile-header reveal-target">
+          <h2>PROFILE</h2>
+          <span class="profile-sub">Callsign: MINI &nbsp;·&nbsp; Class: Duelist &nbsp;·&nbsp; Faction: Overdrive</span>
+        </div>
+
+        <div class="bio-row reveal-target">
+          <p>Mini works fast and loud — sketch, render, ship, repeat. This page is the control room: a live profile, a render log, a running tracklist, and a way to get in touch. Point-blank speed and an unreasonable amount of confidence is the whole strategy.</p>
+          <div class="tag-list">
+            <span class="tag-pill">CLOSE RANGE</span>
+            <span class="tag-pill">HIGH TEMPO</span>
+            <span class="tag-pill">SOLO CARRY</span>
+            <span class="tag-pill">FIRE DMG</span>
+          </div>
+        </div>
+
+        <div class="stat-grid reveal-target">
+          <div class="stat-card">
+            <div class="stat-label"><span>Attack</span><span class="stat-value">92 / 100</span></div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-fill="92"></div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label"><span>Mobility</span><span class="stat-value">88 / 100</span></div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-fill="88"></div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label"><span>Resilience</span><span class="stat-value">61 / 100</span></div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-fill="61"></div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label"><span>Synergy</span><span class="stat-value">75 / 100</span></div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-fill="75"></div></div>
+          </div>
+        </div>
+
+        <div class="skills-cloud reveal-target">
+          <span class="skills-label">Toolkit</span>
+          <div class="skills-tags">
+            <span class="skill-tag">Illustration</span>
+            <span class="skill-tag">Clip Studio Paint</span>
+            <span class="skill-tag">Photoshop</span>
+            <span class="skill-tag">Blender</span>
+            <span class="skill-tag">After Effects</span>
+            <span class="skill-tag">Motion Design</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GALLERY ================= -->
+    <section class="frame-section" id="gallery">
+      <div class="console">
+        <div class="console-dots"></div>
+        <div class="bracket tl"></div>
+        <div class="bracket br"></div>
+        <span class="section-eyebrow">02 // GALLERY</span>
+
+        <div class="gallery-header reveal-target">
+          <h2>RENDER LOG</h2>
+          <span>04 FRAMES ARCHIVED</span>
+        </div>
+
+        <div class="gallery-strip reveal-target">
+          <div class="gallery-frame g-01" tabindex="0">
+            <img src="assets/RENDER.png" alt="Chixia render, standard colour" loading="lazy">
+            <span class="g-tag">VER.01 — STANDARD</span>
+          </div>
+          <div class="gallery-frame g-02" tabindex="0">
+            <img src="assets/RENDER1.png" alt="Chixia render, monochrome" loading="lazy">
+            <span class="g-tag">VER.02 — MONO</span>
+          </div>
+          <div class="gallery-frame g-03" tabindex="0">
+            <img src="assets/RENDER2.png" alt="Chixia render, sepia tone" loading="lazy">
+            <span class="g-tag">VER.03 — EMBER</span>
+          </div>
+          <div class="gallery-frame g-04" tabindex="0">
+            <img src="assets/RENDER4.png" alt="Chixia render, inverted glass tone" loading="lazy">
+            <span class="g-tag">VER.04 — GLASS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DISCOGRAPHY ================= -->
+    <section class="frame-section" id="discography">
+      <div class="console">
+        <div class="console-dots"></div>
+        <div class="bracket tl"></div>
+        <div class="bracket br"></div>
+        <span class="section-eyebrow">03 // TRACKLIST</span>
+
+        <div class="disco-header reveal-target">
+          <h2>NOW QUEUED</h2>
+          <p>Frequency log for this profile. Locked entries are unreleased.</p>
+        </div>
+
+        <div class="track-list reveal-target" id="track-list">
+          <button class="track-row playing" id="track-row-0" data-index="0">
+            <span class="track-index" id="track-num-0">01</span>
+            <span class="track-meta">
+              <span class="t-name">Fall To Hell</span>
+              <span class="t-artist">DOLLWAVE</span>
+            </span>
+            <span class="track-status" id="track-status-0">Ready</span>
+            <span class="track-icon" id="track-icon-0">▶</span>
+          </button>
+
+          <button class="track-row" data-index="1" disabled>
+            <span class="track-index">02</span>
+            <span class="track-meta">
+              <span class="t-name">Overdrive Mode (Unreleased)</span>
+              <span class="t-artist">Mini Creative</span>
+            </span>
+            <span class="track-status">Locked</span>
+            <span class="track-icon">🔒</span>
+          </button>
+
+          <button class="track-row" data-index="2" disabled>
+            <span class="track-index">03</span>
+            <span class="track-meta">
+              <span class="t-name">Nihility (Unreleased)</span>
+              <span class="t-artist">Mini Creative</span>
+            </span>
+            <span class="track-status">Locked</span>
+            <span class="track-icon">🔒</span>
+          </button>
+        </div>
+
+        <div class="disco-player-bar reveal-target">
+          <button class="play-btn" id="disco-play-trigger">Play</button>
+          <div class="progress-container" id="disco-progress-cont" role="slider" aria-label="Seek" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-bar" id="disco-progress-actual"></div>
+          </div>
+          <span class="time-display" id="disco-time-track">0:00 / 0:00</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MINI: ABOUT ================= -->
+    <section class="frame-section" id="mini-about">
+      <div class="console">
+        <div class="console-dots"></div>
+        <div class="bracket tl"></div>
+        <div class="bracket br"></div>
+        <span class="section-eyebrow">04 // MINI</span>
+
+        <div class="mini-badge reveal-target"><span class="icon-dot"></span>Your Personal AI Operating System</div>
+
+        <div class="mini-heading reveal-target">
+          <h2>Meet MINI</h2>
+          <span class="mini-sub">Multifunctional Intelligent Neural Interface</span>
+        </div>
+
+        <div class="bio-row reveal-target">
+          <p>MINI is a local-first personal AI assistant built for productivity, automation, and developer workflow support. It combines voice interaction, AI decision support, system automation, project intelligence, and task management into one unified desktop experience — helping you work faster, automate repetitive actions, and keep tasks, notes, and history organized without switching between a dozen disconnected apps.</p>
+          <div>
+            <p class="mini-tagline">Think Less. <span class="accent">Automate More.</span></p>
+            <div class="tag-list" style="margin-top:14px;">
+              <span class="tag-pill">CALM</span>
+              <span class="tag-pill">INTELLIGENT</span>
+              <span class="tag-pill">RELIABLE</span>
+              <span class="tag-pill">ADAPTIVE</span>
+              <span class="tag-pill">LOCAL-FIRST</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-grid reveal-target">
+          <div class="info-card">
+            <span class="tag">Vision</span>
+            <p>An AI assistant that feels active and integrated into daily work — not limited to chat, and not dependent on the cloud to be useful.</p>
+          </div>
+          <div class="info-card">
+            <span class="tag">Mission</span>
+            <p>Consolidate personal assistance, desktop automation, project support, and developer tools into one practical, local-first platform.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MINI: CAPABILITIES ================= -->
+    <section class="frame-section" id="mini-features">
+      <div class="console">
+        <div class="console-dots"></div>
+        <div class="bracket tl"></div>
+        <div class="bracket br"></div>
+        <span class="section-eyebrow">05 // CAPABILITIES</span>
+
+        <div class="gallery-header reveal-target">
+          <h2 style="font-family:'Syncopate',sans-serif; font-size:clamp(1.8rem,3.8vw,2.6rem); letter-spacing:4px; color:#fff;">CORE FEATURES</h2>
+          <span>9 SYSTEMS ONLINE</span>
+        </div>
+
+        <div class="feature-grid-mini reveal-target">
+          <div class="feature-card-mini"><span class="f-num">01</span><h4>AI & Voice</h4><p>Natural language commands, Whisper speech input, and text-to-speech responses.</p></div>
+          <div class="feature-card-mini"><span class="f-num">02</span><h4>System Automation</h4><p>Launch apps, run desktop actions, capture screenshots, monitor system health.</p></div>
+          <div class="feature-card-mini"><span class="f-num">03</span><h4>Productivity</h4><p>Notes, reminders, focus timer, daily briefing, and habit tracking.</p></div>
+          <div class="feature-card-mini"><span class="f-num">04</span><h4>Developer Tools</h4><p>Git dashboard, API tester, DB browser, port manager, and code review support.</p></div>
+          <div class="feature-card-mini"><span class="f-num">05</span><h4>Project Workspace</h4><p>Project tracking, file organization, and document generation support.</p></div>
+          <div class="feature-card-mini"><span class="f-num">06</span><h4>Personal Assistant</h4><p>Journal, expense tracking, reading list, contacts, and health routines.</p></div>
+          <div class="feature-card-mini"><span class="f-num">07</span><h4>Local Web Dashboard</h4><p>Responsive desktop-style UI with sidebar navigation and quick actions.</p></div>
+          <div class="feature-card-mini"><span class="f-num">08</span><h4>Local Memory</h4><p>SQLite-based persistence — preferences, command history, and project storage.</p></div>
+          <div class="feature-card-mini"><span class="f-num">09</span><h4>Backup & Privacy</h4><p>File and workspace backup, local-first model, no forced cloud dependency.</p></div>
+        </div>
+
+        <div class="module-row-label reveal-target">Modules — Core · Voice · Automate · Tasks · Dev · Projects · Personal · Dashboard · Memory</div>
+        <div class="tag-list reveal-target">
+          <span class="tag-pill">MINI CORE</span>
+          <span class="tag-pill">MINI VOICE</span>
+          <span class="tag-pill">MINI AUTOMATE</span>
+          <span class="tag-pill">MINI TASKS</span>
+          <span class="tag-pill">MINI DEV</span>
+          <span class="tag-pill">MINI PROJECTS</span>
+          <span class="tag-pill">MINI PERSONAL</span>
+          <span class="tag-pill">MINI DASHBOARD</span>
+          <span class="tag-pill">MINI MEMORY</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MINI: WHY / COMPARE ================= -->
+    <section class="frame-section" id="mini-why">
+      <div class="console">
+        <div class="console-dots"></div>
+        <div class="bracket tl"></div>
+        <div class="bracket br"></div>
+        <span class="section-eyebrow">06 // WHY MINI</span>
+
+        <div class="profile-header reveal-target">
+          <h2>ONE ASSISTANT. UNLIMITED POSSIBILITIES.</h2>
+        </div>
+
+        <table class="compare-mini reveal-target">
+          <thead>
+            <tr><th>Traditional Assistant</th><th class="mini-col">MINI</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="old">Answers questions</td><td class="new">Thinks with you</td></tr>
+            <tr><td class="old">One chat</td><td class="new">Persistent memory</td></tr>
+            <tr><td class="old">Cloud only</td><td class="new">Offline + online</td></tr>
+            <tr><td class="old">Limited tools</td><td class="new">Unlimited extensions</td></tr>
+            <tr><td class="old">No automation</td><td class="new">Complete automation</td></tr>
+            <tr><td class="old">Generic</td><td class="new">Personalized</td></tr>
+          </tbody>
+        </table>
+
+        <div class="module-row-label reveal-target">Who is MINI for</div>
+        <div class="tag-list reveal-target">
+          <span class="tag-pill">👤 INDIVIDUALS</span>
+          <span class="tag-pill">👨‍💻 DEVELOPERS</span>
+          <span class="tag-pill">🏢 SMALL TEAMS</span>
+          <span class="tag-pill">⚙️ OPERATIONS</span>
+          <span class="tag-pill">🧑‍💼 PROFESSIONALS</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MINI: GET MINI ================= -->
+    <section class="frame-section" id="mini-get">
+      <div class="console">
+        <div class="console-dots"></div>
+        <div class="bracket tl"></div>
+        <div class="bracket br"></div>
+        <span class="section-eyebrow">07 // GET MINI</span>
+
+        <div class="disco-header reveal-target">
+          <h2>GET MINI</h2>
+          <p>Local-first by default — SQLite-based memory, on-device processing, your data stays on your machine.</p>
+        </div>
+
+        <div class="platform-row reveal-target">
+          <span class="platform-pill"><span class="p-dot"></span>Windows</span>
+          <span class="platform-pill"><span class="p-dot"></span>macOS</span>
+          <span class="platform-pill"><span class="p-dot"></span>Linux</span>
+          <span class="platform-pill"><span class="p-dot"></span>Local Web Dashboard</span>
+        </div>
+
+        <div class="module-row-label reveal-target">Demo status</div>
+        <div class="roadmap-grid-mini reveal-target">
+          <div class="roadmap-row-mini"><span class="rc">✓</span>AI Assistant & Voice</div>
+          <div class="roadmap-row-mini"><span class="rc">✓</span>System Automation</div>
+          <div class="roadmap-row-mini"><span class="rc">✓</span>Productivity Features</div>
+          <div class="roadmap-row-mini"><span class="rc">✓</span>Developer Tools</div>
+          <div class="roadmap-row-mini"><span class="rc">✓</span>Dashboard & UI</div>
+          <div class="roadmap-row-mini"><span class="rc">✓</span>Local-First Architecture</div>
+        </div>
+
+        <div class="module-row-label reveal-target">Tech stack</div>
+        <div class="tag-list reveal-target">
+          <span class="tag-pill">PYTHON</span><span class="tag-pill">FLASK</span><span class="tag-pill">SQLITE</span>
+          <span class="tag-pill">WHISPER</span><span class="tag-pill">PYTTSX3</span><span class="tag-pill">OLLAMA</span>
+          <span class="tag-pill">PSUTIL</span>
+        </div>
+
+        <p class="mini-footnote reveal-target">Built by Dharmendra Kumar Yadav — Software Developer · AI Enthusiast · Automation Engineer.</p>
+      </div>
+    </section>
+
+    <!-- ================= MINI: TIMELINE ================= -->
+    <section class="frame-section" id="mini-timeline">
+      <div class="console">
+        <div class="console-dots"></div>
+        <div class="bracket tl"></div>
+        <div class="bracket br"></div>
+        <span class="section-eyebrow">08 // TIMELINE</span>
+
+        <div class="disco-header reveal-target">
+          <h2>HOW MINI CAME TOGETHER</h2>
+          <p>From a personal project to a full AI operating system.</p>
+        </div>
+
+        <div class="mini-timeline-list reveal-target">
+          <div class="mini-timeline-item">
+            <div class="tl-label">2026</div>
+            <h4>Started as a personal AI assistant project</h4>
+            <p>A single-developer experiment in building an assistant that actually remembers context.</p>
+          </div>
+          <div class="mini-timeline-item">
+            <div class="tl-label">Stage 2</div>
+            <h4>Voice Assistant</h4>
+            <p>Real-time speech recognition and natural voice responses added to the core.</p>
+          </div>
+          <div class="mini-timeline-item">
+            <div class="tl-label">Stage 3</div>
+            <h4>Memory Engine</h4>
+            <p>Persistent memory across sessions — preferences, projects, and working style retained.</p>
+          </div>
+          <div class="mini-timeline-item">
+            <div class="tl-label">Stage 4</div>
+            <h4>Automation Platform</h4>
+            <p>Workflow automation across desktop, browser, and system-level actions.</p>
+          </div>
+          <div class="mini-timeline-item">
+            <div class="tl-label">Stage 5</div>
+            <h4>Developer Tools</h4>
+            <p>Coding assistant, terminal access, and Git/Docker integration shipped.</p>
+          </div>
+          <div class="mini-timeline-item">
+            <div class="tl-label">Stage 6</div>
+            <h4>AI Operating System</h4>
+            <p>MINI today — one local-first assistant covering chat, voice, automation, memory, dev tools, and a productivity dashboard.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MINI: FOUNDER ================= -->
+    <section class="frame-section" id="mini-founder">
+      <div class="console">
+        <div class="console-dots"></div>
+        <div class="bracket tl"></div>
+        <div class="bracket br"></div>
+        <span class="section-eyebrow">09 // FOUNDER</span>
+
+        <div class="disco-header reveal-target">
+          <h2>BUILT BY</h2>
+        </div>
+
+        <div class="founder-card-mini reveal-target">
+          <div class="founder-avatar-mini">DY</div>
+          <div>
+            <h3>Dharmendra Kumar Yadav</h3>
+            <div class="role">Software Developer · AI Enthusiast · Automation Engineer</div>
+            <p class="line">MINI is a practical AI-powered productivity and automation platform — not just a generic chatbot. It started as a way to stop switching between twenty different tools for daily work, and grew into a local-first assistant that feels active and integrated into personal productivity, automation, and developer workflows.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MINI: TESTIMONIALS ================= -->
+    <section class="frame-section" id="mini-testimonials">
+      <div class="console">
+        <div class="console-dots"></div>
+        <div class="bracket tl"></div>
+        <div class="bracket br"></div>
+        <span class="section-eyebrow">10 // TESTIMONIALS</span>
+
+        <div class="disco-header reveal-target">
+          <h2>WHAT PEOPLE ARE SAYING</h2>
+        </div>
+
+        <div class="testimonial-grid-mini reveal-target">
+          <div class="testimonial-card-mini">
+            <p class="quote">"MINI feels like having a second brain."</p>
+            <div class="who">Developer</div>
+          </div>
+          <div class="testimonial-card-mini">
+            <p class="quote">"I stopped switching between 20 apps."</p>
+            <div class="who">Designer</div>
+          </div>
+          <div class="testimonial-card-mini">
+            <p class="quote">"The best productivity assistant I've used."</p>
+            <div class="who">Entrepreneur</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MINI: CONCEPT GALLERY ================= -->
+    <section class="frame-section" id="mini-concepts">
+      <div class="console">
+        <div class="console-dots"></div>
+        <div class="bracket tl"></div>
+        <div class="bracket br"></div>
+        <span class="section-eyebrow">11 // CONCEPT SHEETS</span>
+
+        <div class="gallery-header reveal-target">
+          <h2 style="font-family:'Syncopate',sans-serif; font-size:clamp(1.8rem,3.8vw,2.6rem); letter-spacing:4px; color:#fff;">DESIGN EXPLORATIONS</h2>
+          <span>11 CONCEPTS ARCHIVED — CLICK TO EXPAND</span>
+        </div>
+
+        <div class="concept-grid reveal-target" id="concept-grid">
+          <button class="concept-frame" data-full="assets/mini-concept-01.jpg"><img src="assets/mini-concept-01-thumb.jpg" alt="MINI concept sheet 1" loading="lazy" width="600"><span class="g-tag">CONCEPT 01</span></button>
+          <button class="concept-frame" data-full="assets/mini-concept-02.jpg"><img src="assets/mini-concept-02-thumb.jpg" alt="MINI concept sheet 2" loading="lazy" width="600"><span class="g-tag">CONCEPT 02</span></button>
+          <button class="concept-frame" data-full="assets/mini-concept-03.jpg"><img src="assets/mini-concept-03-thumb.jpg" alt="MINI concept sheet 3" loading="lazy" width="600"><span class="g-tag">CONCEPT 03</span></button>
+          <button class="concept-frame" data-full="assets/mini-concept-04.jpg"><img src="assets/mini-concept-04-thumb.jpg" alt="MINI concept sheet 4" loading="lazy" width="600"><span class="g-tag">CONCEPT 04</span></button>
+          <button class="concept-frame" data-full="assets/mini-concept-05.jpg"><img src="assets/mini-concept-05-thumb.jpg" alt="MINI concept sheet 5" loading="lazy" width="600"><span class="g-tag">CONCEPT 05</span></button>
+          <button class="concept-frame" data-full="assets/mini-concept-06.jpg"><img src="assets/mini-concept-06-thumb.jpg" alt="MINI concept sheet 6" loading="lazy" width="600"><span class="g-tag">CONCEPT 06</span></button>
+          <button class="concept-frame" data-full="assets/mini-concept-07.jpg"><img src="assets/mini-concept-07-thumb.jpg" alt="MINI concept sheet 7" loading="lazy" width="600"><span class="g-tag">CONCEPT 07</span></button>
+          <button class="concept-frame" data-full="assets/mini-concept-08.jpg"><img src="assets/mini-concept-08-thumb.jpg" alt="MINI concept sheet 8" loading="lazy" width="600"><span class="g-tag">CONCEPT 08</span></button>
+          <button class="concept-frame" data-full="assets/mini-concept-09.jpg"><img src="assets/mini-concept-09-thumb.jpg" alt="MINI concept sheet 9" loading="lazy" width="600"><span class="g-tag">CONCEPT 09</span></button>
+          <button class="concept-frame" data-full="assets/mini-concept-10.jpg"><img src="assets/mini-concept-10-thumb.jpg" alt="MINI concept sheet 10" loading="lazy" width="600"><span class="g-tag">CONCEPT 10</span></button>
+          <button class="concept-frame" data-full="assets/mini-concept-11.jpg"><img src="assets/mini-concept-11-thumb.jpg" alt="MINI concept sheet 11" loading="lazy" width="600"><span class="g-tag">CONCEPT 11</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="frame-section" id="contact">
+      <div class="console">
+        <div class="console-dots"></div>
+        <div class="bracket tl"></div>
+        <div class="bracket br"></div>
+        <span class="section-eyebrow">12 // CONTACT</span>
+
+        <h2 class="contact-kanji reveal-target">CONTACT</h2>
+        <p class="contact-line reveal-target">System channel open. Reach Mini for commissions, collabs, or just to say the render looks good.</p>
+
+        <div class="social-row reveal-target">
+          <a class="social-link" href="#" onclick="return false;"><span class="dot-live"></span>Twitter / X</a>
+          <a class="social-link" href="#" onclick="return false;"><span class="dot-live"></span>Pixiv</a>
+          <a class="social-link" href="#" onclick="return false;"><span class="dot-live"></span>Discord</a>
+          <a class="social-link" href="#" onclick="return false;"><span class="dot-live"></span>Email</a>
+        </div>
+
+        <p class="footer-stamp">MINI CREATIVE — SYSTEM ID 1542991141 — SYSTEM ONLINE</p>
+      </div>
+    </section>
+
+  </main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>!function(){"use strict";const e=document.querySelector("#hero .character-root");let t=0,n=0,i=0,o=0,s=0;const r=window.matchMedia("(prefers-reduced-motion: reduce)").matches;let a=!0;!function(){const e=["assets/mini-scene-04.jpg","assets/anime_fly.png","assets/mini-pose-01.png"];let t=0;const n=e.length;function i(){window.MINI_ASSETS_READY||(window.MINI_ASSETS_READY=!0,window.dispatchEvent(new Event("mini-assets-ready")))}e.forEach(e=>{const o=new Image;o.onload=o.onerror=()=>{t++,t>=n&&i()},o.src=e}),setTimeout(i,6e3)}();let d=null;const l=document.getElementById("vanta-bg");function c(e){return new Promise((t,n)=>{const i=document.createElement("script");i.src=e,i.onload=t,i.onerror=n,document.body.appendChild(i)})}function m(){if(l)if("undefined"!=typeof VANTA&&"undefined"!=typeof THREE)try{d=VANTA.BIRDS({el:l,THREE:THREE,mouseControls:!0,touchControls:!0,gyroControls:!1,minHeight:200,minWidth:200,scale:1,scaleMobile:1,backgroundColor:394760,color1:11897149,color2:15680580,colorMode:"varianceGradient",birdSize:1.3,wingSpan:26,speedLimit:4,separation:22,alignment:18,cohesion:22,quantity:2.5,backgroundAlpha:1})}catch(e){l.style.background="#060608"}else l.style.background="#060608"}function u(){if(!l)return;if(r||!a)return void(l.style.background="#060608");const e=()=>{("undefined"!=typeof THREE?Promise.resolve():c("https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js")).then(()=>c("https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.birds.min.js")).then(m).catch(()=>{l.style.background="#060608"})};"requestIdleCallback"in window?requestIdleCallback(e,{timeout:2e3}):setTimeout(e,400)}window.addEventListener("resize",()=>{d&&d.resize&&d.resize()}),document.addEventListener("mousemove",e=>{t=(e.clientX-window.innerWidth/2)/(window.innerWidth/2),n=(e.clientY-window.innerHeight/2)/(window.innerHeight/2)}),r||function r(){if(a){i+=.08*(18*t-i),o+=.08*(12*n-o),s+=.05*(10*-t-s),e&&(e.style.transform=`translate(${i}px, ${o}px)`)}requestAnimationFrame(r)}();const g=document.getElementById("petals-canvas"),p=g.getContext("2d");let h=Math.min(window.devicePixelRatio||1,2);function y(){h=Math.min(window.devicePixelRatio||1,2),g.width=window.innerWidth*h,g.height=window.innerHeight*h,g.style.width=window.innerWidth+"px",g.style.height=window.innerHeight+"px",p.setTransform(h,0,0,h,0,0)}window.addEventListener("resize",y),y();const w=[];class f{constructor(){this.reset(!0)}reset(e){this.x=Math.random()*window.innerWidth,this.y=e?Math.random()*window.innerHeight:-10,this.size=5*Math.random()+3,this.speedY=.7*Math.random()+.3,this.speedX=.4*Math.random()-.2,this.angle=360*Math.random(),this.spin=.8*Math.random()-.4;const t=["rgba(239, 68, 68, 0.22)","rgba(249, 115, 22, 0.18)","rgba(254, 205, 211, 0.22)"];this.color=t[Math.floor(Math.random()*t.length)]}update(){this.y+=this.speedY,this.x+=this.speedX+.25*Math.sin(this.y/40)+.02*s,this.angle+=this.spin,this.y>window.innerHeight+10&&this.reset(!1)}draw(){p.save(),p.translate(this.x,this.y),p.rotate(this.angle*Math.PI/180),p.fillStyle=this.color,p.beginPath(),p.ellipse(0,0,this.size,this.size/1.8,0,0,2*Math.PI),p.fill(),p.restore()}}for(let e=0;e<30;e++)w.push(new f);!function e(){if(p.clearRect(0,0,window.innerWidth,window.innerHeight),a)for(let e=0;e<w.length;e++)w[e].update(),w[e].draw();requestAnimationFrame(e)}();const E=document.querySelectorAll(".nav-dot"),v=document.querySelectorAll(".frame-section");E.forEach(e=>{e.addEventListener("click",()=>{const t=document.getElementById(e.dataset.target);t&&t.scrollIntoView({behavior:r?"auto":"smooth"})})});const b=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&E.forEach(t=>t.classList.toggle("active",t.dataset.target===e.target.id))})},{threshold:.5});v.forEach(e=>b.observe(e));const I=Array.from(v);document.addEventListener("keydown",e=>{if(e.target&&["INPUT","TEXTAREA"].includes(e.target.tagName))return;if("ArrowDown"!==e.key&&"ArrowUp"!==e.key)return;const t=I.findIndex(e=>{const t=e.getBoundingClientRect();return t.top<=.5*window.innerHeight&&t.bottom>=.5*window.innerHeight});if(-1===t)return;const n="ArrowDown"===e.key?Math.min(t+1,I.length-1):Math.max(t-1,0);e.preventDefault(),I[n].scrollIntoView({behavior:r?"auto":"smooth"})});const x=document.querySelectorAll(".reveal-target"),L=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add("in-view"),L.unobserve(e.target))})},{threshold:.2});x.forEach(e=>L.observe(e));const k=document.getElementById("uptime-readout"),C=Date.now();function B(){if(!k)return;const e=Math.floor((Date.now()-C)/1e3),t=String(Math.floor(e/3600)).padStart(2,"0"),n=String(Math.floor(e%3600/60)).padStart(2,"0"),i=String(e%60).padStart(2,"0");k.textContent=`${t}:${n}:${i}`}B(),setInterval(B,1e3);const T=document.getElementById("cursor-glow"),A=document.querySelector("#hero .center-panel");T&&A&&!r&&A.addEventListener("mousemove",e=>{const t=A.getBoundingClientRect();T.style.left=e.clientX-t.left+"px",T.style.top=e.clientY-t.top+"px"});let S=!1,M=null;function q(){if(S)try{M||(M=new(window.AudioContext||window.webkitAudioContext));const e=M,t=e.createOscillator(),n=e.createGain();t.type="sine",t.frequency.value=720,n.gain.setValueAtTime(.05,e.currentTime),n.gain.exponentialRampToValueAtTime(1e-4,e.currentTime+.12),t.connect(n).connect(e.destination),t.start(),t.stop(e.currentTime+.12)}catch(e){}}document.querySelectorAll(".nav-dot, .play-btn, .social-link, .tag-pill, .ambient-btn, .track-row:not([disabled])").forEach(e=>{e.addEventListener("mouseenter",q)});const H=document.getElementById("toggle-motion"),R=document.getElementById("toggle-sound");function P(e){const t=e.audio,n=e.playBtn,i=e.progressContainer,o=e.progressBar,s=e.timeDisplay,r=e.trackTitleEl,a=e.playerCard,d=e.volumeSlider,l=e.onError;function c(e){if(isNaN(e)||!isFinite(e))return"0:00";const t=Math.floor(e/60),n=Math.floor(e%60);return`${t}:${n<10?"0":""}${n}`}function m(){r&&(r.textContent="Unable to load track"),s.textContent="—:— / —:—",n.disabled=!0,n.textContent="Unavailable",a&&a.classList.add("has-error"),l&&l()}return d?(t.volume=parseFloat(d.value),d.addEventListener("input",e=>{t.volume=e.target.value})):t.volume=.5,n.addEventListener("click",()=>{if(!n.disabled)if(t.paused){const e=t.play();e&&e.catch&&e.catch(()=>{m()})}else t.pause()}),t.addEventListener("play",()=>{n.textContent="Pause",a&&a.classList.add("is-playing")}),t.addEventListener("pause",()=>{n.textContent="Play",a&&a.classList.remove("is-playing")}),t.addEventListener("timeupdate",()=>{const e=t.duration?t.currentTime/t.duration*100:0;o.style.width=`${e}%`,i.setAttribute("aria-valuenow",Math.round(e)),s.textContent=`${c(t.currentTime)} / ${c(t.duration)}`}),t.addEventListener("loadedmetadata",()=>{s.textContent=`0:00 / ${c(t.duration)}`}),t.addEventListener("ended",()=>{n.textContent="Play",o.style.width="0%",a&&a.classList.remove("is-playing"),e.onEnded&&e.onEnded()}),t.addEventListener("error",m),i.addEventListener("click",e=>{if(!t.duration||isNaN(t.duration))return;const n=i.getBoundingClientRect(),o=e.clientX-n.left,s=n.width;t.currentTime=Math.max(0,Math.min(1,o/s))*t.duration}),i.addEventListener("keydown",e=>{t.duration&&("ArrowRight"===e.key&&(t.currentTime=Math.min(t.duration,t.currentTime+5)),"ArrowLeft"===e.key&&(t.currentTime=Math.max(0,t.currentTime-5)))}),{handleError:m,formatTime:c}}H&&H.addEventListener("click",()=>{a=!a,H.classList.toggle("muted",!a),H.setAttribute("aria-pressed",String(a)),H.lastChild.textContent=a?"Motion":"Motion: Off",a?u():(d&&d.destroy&&(d.destroy(),d=null),l&&(l.style.background="#060608"))}),R&&R.addEventListener("click",()=>{if(S=!S,R.classList.toggle("muted",!S),R.setAttribute("aria-pressed",String(S)),R.lastChild.textContent=S?"Hover SFX: On":"Hover SFX",S&&!M)try{M=new(window.AudioContext||window.webkitAudioContext)}catch(e){}}),u(),function(){const e=document.getElementById("mini-walker"),t=document.getElementById("mini-walker-img"),n=document.getElementById("hero"),i=document.getElementById("mini-get");if(!(e&&t&&n&&i))return;if(r||"undefined"==typeof gsap||"undefined"==typeof ScrollTrigger)return void(e.style.display="none");gsap.registerPlugin(ScrollTrigger);const o=["assets/mini-pose-01.png","assets/mini-pose-02.png","assets/mini-pose-03.png","assets/mini-pose-04.png","assets/mini-pose-05.png","assets/mini-pose-06.png","assets/mini-pose-07.png","assets/mini-pose-08.png","assets/mini-pose-09.png","assets/mini-pose-10.png","assets/mini-pose-11.png","assets/mini-pose-12.png","assets/mini-pose-13.png","assets/mini-pose-14.png","assets/mini-pose-15.png","assets/mini-pose-16.png","assets/mini-pose-17.png","assets/mini-pose-18.png","assets/mini-pose-19.png","assets/mini-pose-20.png","assets/mini-pose-21.png","assets/mini-pose-22.png","assets/mini-pose-23.png","assets/mini-pose-24.png","assets/mini-pose-25.png","assets/mini-pose-26.png","assets/mini-pose-27.png","assets/mini-pose-28.png","assets/mini-pose-29.png"];function s(){o.forEach(e=>{const t=new Image;t.loading="lazy",t.src=e})}"requestIdleCallback"in window?requestIdleCallback(s,{timeout:4e3}):setTimeout(s,1500),gsap.fromTo(e,{y:0},{y:()=>.62*window.innerHeight,ease:"none",scrollTrigger:{trigger:n,start:"top top",endTrigger:i,end:"bottom bottom",scrub:.6,onUpdate:n=>{const i=n.progress;let s=1;if(i<.03?s=i/.03:i>.92&&(s=(1-i)/.08),gsap.set(e,{opacity:s}),o.length>1){const e=Math.min(o.length-1,Math.floor(i*o.length));String(t.dataset.idx)!==String(e)&&(t.dataset.idx=e,t.src=o[e])}}}}),gsap.to(t,{x:6,rotate:1.6,duration:1.1,ease:"sine.inOut",yoyo:!0,repeat:-1})}();(function(){const e=document.getElementById("mini-walker-2"),t=document.getElementById("mini-walker-img-2"),n=document.getElementById("mini-get"),i=document.getElementById("contact");if(!(e&&t&&n&&i))return;if(r||"undefined"==typeof gsap||"undefined"==typeof ScrollTrigger)return void(e.style.display="none");const o=["cutouts/mini_cutouts (1).png","cutouts/mini_cutouts (2).png","cutouts/mini_cutouts (3).png","cutouts/mini_cutouts (4).png","cutouts/mini_cutouts (5).png","cutouts/mini_cutouts (6).png","cutouts/mini_cutouts (7).png","cutouts/mini_cutouts (8).png","cutouts/mini_cutouts (9).png","cutouts/mini_cutouts (10).png","cutouts/mini_cutouts (11).png","cutouts/mini_cutouts (12).png"];function s(){o.forEach(e=>{const t=new Image;t.loading="lazy",t.src=e})}"requestIdleCallback"in window?requestIdleCallback(s,{timeout:4e3}):setTimeout(s,1500),gsap.fromTo(e,{y:0},{y:()=>.62*window.innerHeight,ease:"none",scrollTrigger:{trigger:n,start:"top top",endTrigger:i,end:"bottom bottom",scrub:.6,onUpdate:n=>{const i=n.progress;let s=1;if(i<.03?s=i/.03:i>.92&&(s=(1-i)/.08),gsap.set(e,{opacity:s}),o.length>1){const e=Math.min(o.length-1,Math.floor(i*o.length));String(t.dataset.idx)!==String(e)&&(t.dataset.idx=e,t.src=o[e])}}}}),gsap.to(t,{x:-6,rotate:-1.6,duration:1.1,ease:"sine.inOut",yoyo:!0,repeat:-1})})();const $=document.getElementById("audio-element");P({audio:$,playBtn:document.getElementById("play-trigger"),progressContainer:document.getElementById("progress-cont"),progressBar:document.getElementById("progress-actual"),timeDisplay:document.getElementById("time-track"),trackTitleEl:document.getElementById("track-name"),playerCard:document.getElementById("player-card"),volumeSlider:document.getElementById("vol-slider")});const D=document.getElementById("disco-play-trigger"),N=document.getElementById("disco-progress-cont"),z=document.getElementById("disco-progress-actual"),X=document.getElementById("disco-time-track"),F=document.getElementById("track-row-0"),Y=document.getElementById("track-status-0"),O=document.getElementById("track-icon-0");P({audio:$,playBtn:D,progressContainer:N,progressBar:z,timeDisplay:X,playerCard:null,onError:()=>{Y&&(Y.textContent="Error"),F&&(F.disabled=!0)},onEnded:()=>{F&&F.classList.remove("playing"),O&&(O.textContent="▶"),Y&&(Y.textContent="Ready")}}),$.addEventListener("play",()=>{F&&F.classList.add("playing"),O&&(O.innerHTML='<span class="eq-bars"><span></span><span></span><span></span></span>'),Y&&(Y.textContent="Playing")}),$.addEventListener("pause",()=>{F&&F.classList.remove("playing"),O&&(O.textContent="▶"),Y&&!$.error&&(Y.textContent="Ready")});const W=document.title;let V=null,j=!0;function U(){V&&(clearInterval(V),V=null),document.title=W}$.addEventListener("play",()=>{V||(V=setInterval(()=>{j=!j,document.title=j?"♪ Now Playing — Fall To Hell":W},1800))}),$.addEventListener("pause",U),$.addEventListener("ended",U),F.addEventListener("click",()=>{if(!F.disabled)if($.paused){const e=$.play();e&&e.catch&&e.catch(()=>{})}else $.pause()}),document.querySelectorAll(".track-row[disabled]").forEach(e=>{e.setAttribute("aria-disabled","true")}),function(){if(r)return;const e=document.querySelectorAll(".stat-card, .info-card, .feature-card-mini, .concept-frame");e.forEach(e=>{e.classList.add("tilt-target"),e.addEventListener("mousemove",t=>{const n=e.getBoundingClientRect(),i=(t.clientX-n.left)/n.width-.5,o=(t.clientY-n.top)/n.height-.5;e.style.transform=`perspective(700px) rotateX(${(7*-o).toFixed(2)}deg) rotateY(${(7*i).toFixed(2)}deg) translateZ(4px)`}),e.addEventListener("mouseleave",()=>{e.style.transform=""})})}(),function(){const e=document.getElementById("lightbox-overlay"),t=document.getElementById("lightbox-img"),n=document.querySelectorAll(".concept-frame");function i(){e.classList.remove("open")}e&&t&&n.length&&(n.forEach(n=>{n.addEventListener("click",()=>{const i=n.dataset.full,o=n.querySelector("img");var s,r;s=i,r=o?o.alt:"",t.src=s,t.alt=r||"",e.classList.add("open")})}),e.addEventListener("click",t=>{t.target===e&&i()}),document.addEventListener("keydown",e=>{"Escape"===e.key&&i()}))}();const _=document.querySelectorAll(".stat-bar-fill"),G=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.style.width=e.target.dataset.fill+"%",G.unobserve(e.target))})},{threshold:.4});_.forEach(e=>G.observe(e));(function(){const b=document.getElementById("floating-audio-btn"),wrap=document.getElementById("floating-audio-widget"),ip=document.getElementById("fab-icon-play"),ic=document.getElementById("fab-icon-pause"),fv=document.getElementById("fab-volume"),fvWrap=document.getElementById("fab-volume-wrap"),mv=document.getElementById("vol-slider");if(!b||!$)return;let collapseTimer=null;function scheduleCollapse(){clearTimeout(collapseTimer);collapseTimer=setTimeout(()=>{wrap.classList.remove("expanded");b.setAttribute("aria-expanded","false")},3200)}function expand(){wrap.classList.add("expanded");b.setAttribute("aria-expanded","true");scheduleCollapse()}function sync(){const playing=!$.paused&&!$.ended;if(wrap)wrap.classList.toggle("playing",playing);b.setAttribute("aria-pressed",String(playing));b.setAttribute("aria-label",playing?"Pause music":"Play music");if(ip)ip.style.display=playing?"none":"block";if(ic)ic.style.display=playing?"block":"none"}b.addEventListener("click",()=>{if($.paused){const p=$.play();p&&p.catch&&p.catch(()=>{b.setAttribute("aria-label","Unable to play track")})}else $.pause();expand()}),$.addEventListener("play",sync),$.addEventListener("pause",sync),$.addEventListener("ended",sync),$.addEventListener("error",()=>{b.disabled=!0,b.setAttribute("aria-label","Track unavailable"),wrap&&wrap.classList.add("has-error")}),sync();if(fv){fv.value=$.volume;fv.addEventListener("input",e=>{$.volume=parseFloat(e.target.value);if(mv)mv.value=e.target.value;scheduleCollapse()})}if(fvWrap){fvWrap.addEventListener("focusin",()=>clearTimeout(collapseTimer)),fvWrap.addEventListener("focusout",scheduleCollapse)}if(mv){mv.addEventListener("input",e=>{if(fv)fv.value=e.target.value})}})();}();</script>
+</body>
+</html>
